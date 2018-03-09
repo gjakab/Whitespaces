@@ -1,14 +1,17 @@
 package hu.elte.whitespaces.tester.model;
 
-import java.sql.Timestamp;
-import java.util.List;
 
+
+import java.util.Map;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,28 +22,29 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "TESTS")
+@Table(name = "QUESTIONS")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class Test extends BaseEntity{
+public class Question extends BaseEntity{
+	
+	// TODO Enum vagy String?
+	@Column(nullable = false)
+	private String category;
 		
-	@Column(nullable = false, unique = true)
-	private String name;
-	
 	@Column(nullable = false)
-	private Timestamp creationDate;
+	private String question;
 	
-	@Column(nullable = false)
-	private Double stat;
-
     @JsonIgnore
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
-    
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "test")
-    private List<Question> questions;
+    @ManyToOne(targetEntity = Test.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEST_ID")
+    private Test test;
+	
+	@ElementCollection
+    @MapKeyColumn(name="ANSWER")
+    @Column(name="CORRECT_ANSWER")
+    @CollectionTable(name="ANSWERS")
+    Map<String, Boolean> answers;
+	
 }
