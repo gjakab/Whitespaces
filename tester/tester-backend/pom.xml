@@ -35,7 +35,13 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok-maven</artifactId>
+		    <version>1.16.20.0</version>
+		    <type>pom</type>
+		</dependency>		
+		
         <!-- Dependencies for testing -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
