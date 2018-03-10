@@ -3,6 +3,7 @@ package hu.elte.whitespaces.tester.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class Test extends BaseEntity{
+public class Test extends BaseEntity {
 		
 	@Column(nullable = false, unique = true)
 	private String name;
@@ -32,7 +33,7 @@ public class Test extends BaseEntity{
 	@Column(nullable = false)
 	private Timestamp creationDate;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Double stat;
 
     @JsonIgnore
@@ -41,6 +42,10 @@ public class Test extends BaseEntity{
     private User user;
     
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "test")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "test", cascade = CascadeType.ALL)
     private List<Question> questions;
+    
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "test")
+    private List<TestResult> testResults;
 }

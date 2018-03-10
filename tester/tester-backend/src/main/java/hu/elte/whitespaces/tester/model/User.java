@@ -2,6 +2,7 @@ package hu.elte.whitespaces.tester.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -24,7 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 	
 	@Column(nullable = false)
 	private String firstname;
@@ -40,14 +41,18 @@ public class User extends BaseEntity{
 	
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
-	
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
     
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Test> tests;
+    
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Test> testResults;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
 	public enum Role {
         STUDENT, TEACHER, ADMIN
