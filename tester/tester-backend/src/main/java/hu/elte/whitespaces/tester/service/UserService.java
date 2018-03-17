@@ -22,7 +22,7 @@ public class UserService {
         this.repository = repository;
     }
 
-    public User getUser(Integer id) {
+    public User getUserById(Integer id) {
         Optional<User> result = repository.findById(id);
         
         if(result.isPresent()) {
@@ -32,7 +32,7 @@ public class UserService {
         }
     }
 
-    public User findByEmail(String email) {
+    public User getUserByEmail(String email) {
         Optional<User> result = repository.findByEmail(email);
         
         if(result.isPresent()) {
