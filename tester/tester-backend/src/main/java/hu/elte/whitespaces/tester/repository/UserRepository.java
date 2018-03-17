@@ -11,4 +11,5 @@ import hu.elte.whitespaces.tester.model.User;
 public interface UserRepository extends CrudRepository<User, Integer> {
 
     Optional<User> findById(Integer id);
+    Optional<User> findByEmail(String email);
 }
