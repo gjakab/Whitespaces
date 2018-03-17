@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.model.User.Role;
 
+/*Delte the imports from import.sql before the test*/
 public class UserControllerTest extends AbstractControllerTest {
 
     private final static String EMAIL = "user@mail.com";
