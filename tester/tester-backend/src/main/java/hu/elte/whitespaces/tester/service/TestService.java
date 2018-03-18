@@ -56,7 +56,7 @@ public class TestService {
 	}
 	
 	@Transactional
-	public Test update(Test test, int Id) {
+	public Test update(int Id, Test test) {
 		Optional<Test> result = testRepository.findById(Id);
 		
 		if (result.isPresent()) {
