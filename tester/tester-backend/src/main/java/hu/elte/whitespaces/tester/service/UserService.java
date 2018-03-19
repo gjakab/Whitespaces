@@ -8,18 +8,41 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.repository.UserRepository;
 
 @Service
+@SessionScope
 public class UserService {
 
     private final UserRepository repository;
 
+    private User user;
+
     @Autowired
     UserService(UserRepository repository){
         this.repository = repository;
+    }
+
+    public User login(User user) {
+        Optional<User> result = repository.findByEmail(user.getEmail());
+
+        if(result.isPresent()) {
+            this.user = result.get();
+            return result.get();
+        } else {
+            return this.user;
+        }
+    }
+
+    public void logout() {
+        this.user = null;
+    }
+
+    public boolean isLoggedIn() {
+        return user != null;
     }
 
     public User getUserById(Integer id) {

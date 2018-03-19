@@ -29,6 +29,8 @@ public class UserController {
     private final static String USER_ID = "/id";
     private final static String EMAIL = "/email";
     private final static String USER_LIST = "/all";
+    private final static String LOGIN = "/login";
+    private final static String LOGOUT = "/logout";
 
     private final UserService service;
 
@@ -65,7 +67,7 @@ public class UserController {
     }
 
     @PostMapping("")
-    public ResponseEntity<User> create(@Valid @RequestBody User user) {
+    public ResponseEntity<User> create(@RequestBody User user) {
         
         User saved = service.register(user);
 
@@ -74,6 +76,26 @@ public class UserController {
         } else {
             return ResponseEntity.status(NOT_FOUND).build();
         }
+    }
+
+    @PostMapping(LOGIN)
+    public ResponseEntity<User> login(@RequestBody User user) {
+        
+        User loggedInUser = service.login(user);
+
+        if(loggedInUser != null) {
+            return ResponseEntity.ok(loggedInUser);
+        } else {
+            return ResponseEntity.status(NOT_FOUND).build();
+        }
+    }
+
+    @PostMapping(LOGOUT)
+    public ResponseEntity<User> logout(@RequestBody User user) {
+
+        service.logout();
+
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(USER_ID)
