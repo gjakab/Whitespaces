@@ -31,9 +31,9 @@ public class UserService {
 
         if(result.isPresent()) {
             this.user = result.get();
-            return result.get();
-        } else {
             return this.user;
+        } else {
+            return null;
         }
     }
 
