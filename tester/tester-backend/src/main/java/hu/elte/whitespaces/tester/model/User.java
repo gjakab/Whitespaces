@@ -44,11 +44,11 @@ public class User extends BaseEntity {
     
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Test> tests;
+    private List<Assessment> assessments;
     
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Test> testResults;
+    private List<Assessment> assessmentResults;
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -94,20 +94,20 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public List<Test> getTests() {
-        return tests;
+    public List<Assessment> getAssessments() {
+        return assessments;
     }
 
-    public void setTests(List<Test> tests) {
-        this.tests = tests;
+    public void setAssesments(List<Assessment> assessments) {
+        this.assessments = assessments;
     }
 
-    public List<Test> getTestResults() {
-        return testResults;
+    public List<Assessment> getAssesmentResults() {
+        return this.assessmentResults;
     }
 
-    public void setTestResults(List<Test> testResults) {
-        this.testResults = testResults;
+    public void setAssesmentResults(List<Assessment> AssesmentResults) {
+        this.assessmentResults = AssesmentResults;
     }
 
     public Role getRole() {

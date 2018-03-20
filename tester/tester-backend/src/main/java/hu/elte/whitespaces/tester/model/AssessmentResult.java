@@ -15,12 +15,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "TEST_RESULTS")
+@Table(name = "ASSESSMENT_RESULTS")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class TestResult extends BaseEntity {
+public class AssessmentResult extends BaseEntity {
 	
 	@Column(nullable = false)
 	private int score;
@@ -34,8 +34,8 @@ public class TestResult extends BaseEntity {
     private User user;
     
     @JsonIgnore
-    @ManyToOne(targetEntity = Test.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEST_ID")
-    private Test test;
+    @ManyToOne(targetEntity = Assessment.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ASSESSMENT_ID")
+    private Assessment assessment;
 	
 }

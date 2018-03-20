@@ -34,9 +34,9 @@ public class Question extends BaseEntity {
 	private String question;
 	
     @JsonIgnore
-    @ManyToOne(targetEntity = Test.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEST_ID")
-    private Test test;
+    @ManyToOne(targetEntity = Assessment.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ASSESSMENT_ID")
+    private Assessment assessment;
 	
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "question", cascade = CascadeType.ALL)

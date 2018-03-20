@@ -18,36 +18,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import hu.elte.whitespaces.tester.model.Test;
-import hu.elte.whitespaces.tester.service.TestService;
+import hu.elte.whitespaces.tester.model.Assessment;
+import hu.elte.whitespaces.tester.service.AssessmentService;
 import hu.elte.whitespaces.tester.service.UserService;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //This is need for development
 @RestController
-@RequestMapping("/api/users/tests")
-public class TestController {
+@RequestMapping("/api/users/assessments")
+public class AssessmentController {
 	
-	private final static String TEST_ID ="/id";
-	private final static String TEST_LIST ="/all";
+	private final static String ASSESSMENT_ID ="/id";
+	private final static String ASSESSMENT_LIST ="/all";
 	
-	private final TestService testService;
+	private final AssessmentService assessmentService;
 	
 	private final UserService userService;
 	
 	@Autowired
-	public TestController(TestService testService, UserService userService) {
-		this.testService = testService;
+	public AssessmentController(AssessmentService assessmentService, UserService userService) {
+		this.assessmentService = assessmentService;
 		this.userService = userService;
 	}
 	
 	@GetMapping("")
-	public ResponseEntity<List<Test>> getAllTestsByUserId() {
-		return ResponseEntity.ok(testService.getAllTestsByUserId(userService.getCurrentUser().getId()));
+	public ResponseEntity<List<Assessment>> getAllAssessmentsByUserId() {
+		return ResponseEntity.ok(assessmentService.getAllAssessmentsByUserId(userService.getCurrentUser().getId()));
 	}
 	
-	@GetMapping(TEST_ID)
-	public ResponseEntity<Test> getTestById(@RequestParam(name = "testId") Integer Id) {
-		Test response = testService.getTestById(Id);
+	@GetMapping(ASSESSMENT_ID)
+	public ResponseEntity<Assessment> getAssessmentById(@RequestParam(name = "assessmentId") Integer Id) {
+		Assessment response = assessmentService.getAssessmentById(Id);
 		
 		if (response != null) {
 			return ResponseEntity.ok(response);
@@ -55,14 +55,14 @@ public class TestController {
 		return ResponseEntity.status(NOT_FOUND).build();
 	}
 	
-	@GetMapping(TEST_LIST)
-	public ResponseEntity<List<Test>> getAllTests() {
-		return ResponseEntity.ok(testService.getAllTests());
+	@GetMapping(ASSESSMENT_LIST)
+	public ResponseEntity<List<Assessment>> getAllAssessments() {
+		return ResponseEntity.ok(assessmentService.getAllAssessments());
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<Test> create(@Valid @RequestBody Test test) {
-		Test saved = testService.create(test, userService.getCurrentUser());
+	public ResponseEntity<Assessment> create(@Valid @RequestBody Assessment assessment) {
+		Assessment saved = assessmentService.create(assessment, userService.getCurrentUser());
 		
 		if (saved != null) {
 			return ResponseEntity.ok(saved);
@@ -70,17 +70,17 @@ public class TestController {
 		return ResponseEntity.status(NOT_FOUND).build();
 	}
 	
-	@DeleteMapping(TEST_ID)
-	public ResponseEntity<Test> delete(@RequestParam(name="testId") Integer Id) {
-		if (testService.delete(Id)) {
+	@DeleteMapping(ASSESSMENT_ID)
+	public ResponseEntity<Assessment> delete(@RequestParam(name="assessmentId") Integer Id) {
+		if (assessmentService.delete(Id)) {
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.status(NOT_FOUND).build();
 	}
 	
-	@PatchMapping(TEST_ID)
-	public ResponseEntity<Test> update(@RequestParam(name="testId") Integer Id, @Valid @RequestBody Test test) {
-		Test updated = testService.update(Id, test);
+	@PatchMapping(ASSESSMENT_ID)
+	public ResponseEntity<Assessment> update(@RequestParam(name="assessmentId") Integer Id, @Valid @RequestBody Assessment assessment) {
+		Assessment updated = assessmentService.update(Id, assessment);
 		
 		if (updated != null) {
 			return ResponseEntity.ok(updated);
