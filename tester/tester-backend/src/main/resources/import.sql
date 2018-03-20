@@ -1,0 +1,1 @@
+INSERT INTO USERS (ID, VERSION, FIRSTNAME, LASTNAME, SCHOOL, EMAIL, PASSWORD, ROLE) VALUES (0, 1, 'Harry', 'Potter', 'Roxfort', 'HarryTheBestWiz@rd.com', 'Salvio_hexia', 'STUDENT');
