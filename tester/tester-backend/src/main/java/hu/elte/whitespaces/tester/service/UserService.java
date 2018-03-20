@@ -89,5 +89,9 @@ public class UserService {
         users.forEach(user -> results.add(user));
         return results;
     }
+    
+    public User getCurrentUser() {
+    	return this.user;
+    }
 
 }

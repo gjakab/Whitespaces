@@ -8,12 +8,14 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 import hu.elte.whitespaces.tester.model.Test;
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.repository.TestRepository;
 
 @Service
+@SessionScope
 public class TestService {
 	
 	private TestRepository testRepository;
