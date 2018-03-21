@@ -31,7 +31,6 @@ public class AssessmentController {
 	private final static String ASSESSMENT_LIST ="/all";
 	
 	private final AssessmentService assessmentService;
-	
 	private final UserService userService;
 	
 	@Autowired
@@ -87,9 +86,5 @@ public class AssessmentController {
 		}
 		return ResponseEntity.status(NOT_FOUND).build();
 	}
-	
-	
-	
-	
 
 }

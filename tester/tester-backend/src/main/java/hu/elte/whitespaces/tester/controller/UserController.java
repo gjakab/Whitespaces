@@ -4,8 +4,6 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.service.UserService;
-
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //This is need for development
 @RestController
@@ -91,7 +88,7 @@ public class UserController {
     }
 
     @PostMapping(LOGOUT)
-    public ResponseEntity<User> logout(@RequestBody User user) {
+    public ResponseEntity<User> logout() {
 
         service.logout();
 
