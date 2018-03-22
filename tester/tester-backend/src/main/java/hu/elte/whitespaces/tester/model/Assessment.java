@@ -20,12 +20,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "TESTS")
+@Table(name = "ASSESSMENTS")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-public class Test extends BaseEntity {
+public class Assessment extends BaseEntity {
 		
 	@Column(nullable = false, unique = true)
 	private String name;
@@ -42,10 +42,10 @@ public class Test extends BaseEntity {
     private User user;
     
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "test", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "assessment", cascade = CascadeType.ALL)
     private List<Question> questions;
     
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "test")
-    private List<TestResult> testResults;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "assessment")
+    private List<AssessmentResult> assessmentResults;
 }

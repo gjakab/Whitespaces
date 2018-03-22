@@ -1,11 +1,10 @@
 package hu.elte.whitespaces.tester.controller;
 
 import static hu.elte.whitespaces.tester.model.User.Role.STUDENT;
-
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.OK;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
