@@ -1,8 +1,9 @@
 package hu.elte.whitespaces.tester.service;
 
-import static org.mockito.Mockito.*;
 import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 

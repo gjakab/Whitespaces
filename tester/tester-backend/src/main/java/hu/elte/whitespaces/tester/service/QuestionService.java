@@ -16,10 +16,12 @@ import hu.elte.whitespaces.tester.repository.QuestionRepository;
 @SessionScope
 public class QuestionService {
 	private final QuestionRepository questionRepository;
+	private final AssessmentService assessmentService;
 	
 	@Autowired
-	public QuestionService(QuestionRepository questionRepository) {
+	public QuestionService(QuestionRepository questionRepository, AssessmentService assessmentService) {
 		this.questionRepository = questionRepository;
+		this.assessmentService = assessmentService;
 	}
 	
 	public Question getQuestionById(Integer id) {
@@ -41,8 +43,8 @@ public class QuestionService {
 	}
 	
 	@Transactional
-	public Question create(Question question, Integer assessmentId) {
-		question.setId(assessmentId);
+	public Question create(Question question, Integer aId) {
+		question.setAssessment(assessmentService.getAssessmentById(aId));
 		return questionRepository.save(question);
 	}
 	

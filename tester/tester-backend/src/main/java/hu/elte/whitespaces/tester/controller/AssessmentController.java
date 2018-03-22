@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +27,7 @@ import hu.elte.whitespaces.tester.service.UserService;
 @RestController
 @RequestMapping("/api/users/assessments")
 public class AssessmentController {
-	
-	private final static String ASSESSMENT_ID ="/id";
+	private final static String ASSESSMENT_ID = "/{aId}";
 	private final static String ASSESSMENT_LIST ="/all";
 	
 	private final AssessmentService assessmentService;
@@ -45,8 +45,8 @@ public class AssessmentController {
 	}
 	
 	@GetMapping(ASSESSMENT_ID)
-	public ResponseEntity<Assessment> getAssessmentById(@RequestParam(name = "assessmentId") Integer Id) {
-		Assessment response = assessmentService.getAssessmentById(Id);
+	public ResponseEntity<Assessment> getAssessmentById(@PathVariable Integer aId) {
+		Assessment response = assessmentService.getAssessmentById(aId);
 		
 		if (response != null) {
 			return ResponseEntity.ok(response);

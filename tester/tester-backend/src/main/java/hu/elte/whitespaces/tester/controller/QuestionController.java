@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ import hu.elte.whitespaces.tester.service.QuestionService;
 @RequestMapping("api/users/assessments/{aId}")
 public class QuestionController {
 	private final static String QUESTION_ID = "/question/{qId}";
+	private final static String QUESTION_LIST = "/questionlist";
 	
 	private final QuestionService questionService;
 	
@@ -44,9 +46,20 @@ public class QuestionController {
 		return ResponseEntity.status(NOT_FOUND).build();
 	}
 	
-	@GetMapping("")
+	@GetMapping(QUESTION_LIST)
 	public ResponseEntity<List<Question>> getAllQuestionsByAssessment(@PathVariable Integer aId) {
 		return ResponseEntity.ok(questionService.getAllQuestionsByAssessmentId(aId));
+	}
+	
+	@PostMapping("")
+	public ResponseEntity<Question> create(@Valid @RequestBody Question question, @PathVariable Integer aId) {
+		Question saved = questionService.create(question, aId);
+		
+		if (saved != null) {
+			return ResponseEntity.ok(saved);
+		}
+		
+		return ResponseEntity.status(NOT_FOUND).build();
 	}
 	
 	@DeleteMapping(QUESTION_ID)
