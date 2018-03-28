@@ -70,16 +70,16 @@ public class AssessmentController {
 	}
 	
 	@DeleteMapping(ASSESSMENT_ID)
-	public ResponseEntity<Assessment> delete(@RequestParam(name="assessmentId") Integer Id) {
-		if (assessmentService.delete(Id)) {
+	public ResponseEntity<Assessment> delete(@PathVariable Integer aId) {
+		if (assessmentService.delete(aId)) {
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.status(NOT_FOUND).build();
 	}
 	
 	@PatchMapping(ASSESSMENT_ID)
-	public ResponseEntity<Assessment> update(@RequestParam(name="assessmentId") Integer Id, @Valid @RequestBody Assessment assessment) {
-		Assessment updated = assessmentService.update(Id, assessment);
+	public ResponseEntity<Assessment> update(@PathVariable Integer aId, @Valid @RequestBody Assessment assessment) {
+		Assessment updated = assessmentService.update(aId, assessment);
 		
 		if (updated != null) {
 			return ResponseEntity.ok(updated);
