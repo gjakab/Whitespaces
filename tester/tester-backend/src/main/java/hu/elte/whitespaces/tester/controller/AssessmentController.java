@@ -2,6 +2,9 @@ package hu.elte.whitespaces.tester.controller;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+import static hu.elte.whitespaces.tester.model.User.Role.TEACHER;
+import static hu.elte.whitespaces.tester.model.User.Role.ADMIN;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.elte.whitespaces.tester.config.Role;
 import hu.elte.whitespaces.tester.model.Assessment;
 import hu.elte.whitespaces.tester.service.AssessmentService;
 import hu.elte.whitespaces.tester.service.UserService;
@@ -59,6 +63,7 @@ public class AssessmentController {
 		return ResponseEntity.ok(assessmentService.getAllAssessments());
 	}
 	
+	@Role({TEACHER, ADMIN})
 	@PostMapping("")
 	public ResponseEntity<Assessment> create(@Valid @RequestBody Assessment assessment) {
 		Assessment saved = assessmentService.create(assessment, userService.getCurrentUser());
