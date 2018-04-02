@@ -83,6 +83,7 @@ public class AssessmentControllerTest extends AbstractControllerTest {
     
     @Test
     public void createTest() {
+        createAndLoginUserWithEmail(EMAIL1);
     	Assessment created = assessmentController.create(buildAssessmentWithName(NAME1))
     			 								 .getBody();
     	
@@ -93,6 +94,7 @@ public class AssessmentControllerTest extends AbstractControllerTest {
     
     @Test
     public void deleteTest() {
+        createAndLoginUserWithEmail(EMAIL1);
     	Assessment assessment = assessmentController.create(buildAssessmentWithName(NAME1))
     			 									.getBody();
     	ResponseEntity<Assessment> deleteResponse = assessmentController.delete(assessment.getId());
@@ -101,6 +103,7 @@ public class AssessmentControllerTest extends AbstractControllerTest {
     
     @Test
     public void updateTest() {
+        createAndLoginUserWithEmail(EMAIL1);
     	Assessment assessment = assessmentController.create(buildAssessmentWithName(NAME1))
 													.getBody();
     	
