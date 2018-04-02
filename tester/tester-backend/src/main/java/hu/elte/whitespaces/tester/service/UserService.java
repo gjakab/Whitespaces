@@ -35,7 +35,6 @@ public class UserService {
 
         if(result.isPresent() && passwordEncoder.matches(user.getPassword(), result.get().getPassword())) {
             this.user = result.get();
-            System.out.println(result.get());
             return this.user;
         } else {
             return null;
