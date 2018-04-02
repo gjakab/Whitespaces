@@ -66,7 +66,7 @@ public class UserControllerTest extends AbstractControllerTest {
         User created = controller.create(buildUserWithGivenEmail(EMAIL))
                                  .getBody();
 
-        assertThat(created.getPassword()).isEqualTo(PASSWORD);
+        assertThat(created.getPassword()).isNotEmpty();
         assertThat(created.getEmail()).isEqualTo(EMAIL);
         assertThat(created.getRole()).isEqualTo(STUDENT);
         assertThat(created.getFirstname()).isEqualTo(FIRST_NAME);

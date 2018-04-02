@@ -128,9 +128,19 @@ public class AssessmentControllerTest extends AbstractControllerTest {
     	user.setEmail(email);
     	user.setPassword(PASSWORD);
     	user.setRole(ROLE);
-    	
-    	userController.create(user).getBody().getId();
-    	userController.login(user);
+
+        userController.create(user);
+
+    	User loginUser = new User();
+
+    	loginUser.setFirstname(FIRSTNAME);
+    	loginUser.setLastname(LASTNAME);
+    	loginUser.setSchool(SCHOOL);
+    	loginUser.setEmail(email);
+    	loginUser.setPassword(PASSWORD);
+    	loginUser.setRole(ROLE);
+
+    	userController.login(loginUser);
     }
     
     private Assessment buildAssessmentWithName(String name) {

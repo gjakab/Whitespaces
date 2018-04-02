@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -19,18 +20,22 @@ public class UserService {
 
     private final UserRepository repository;
 
+    private PasswordEncoder passwordEncoder;
+
     private User user;
 
     @Autowired
-    UserService(UserRepository repository){
+    UserService(UserRepository repository, PasswordEncoder passwordEncoder){
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User login(User user) {
         Optional<User> result = repository.findByEmail(user.getEmail());
 
-        if(result.isPresent()) {
+        if(result.isPresent() && passwordEncoder.matches(user.getPassword(), result.get().getPassword())) {
             this.user = result.get();
+            System.out.println(result.get());
             return this.user;
         } else {
             return null;
@@ -67,6 +72,7 @@ public class UserService {
 
     @Transactional
     public User register(User entity) {
+        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
         return repository.save(entity);
     }
 
