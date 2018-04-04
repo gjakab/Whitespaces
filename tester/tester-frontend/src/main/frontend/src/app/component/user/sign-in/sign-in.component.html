@@ -11,7 +11,7 @@
         <div class="col-sm">
           <label for="email">Email</label>
           <input type="text" id="email" class="form-control" name="email"
-                 ngModel required minlength="4">
+                 ngModel required pattern="[0-9a-zA-Z]+@[0-9a-zA-Z]+\.[a-z]+" minlength="4">
         </div>
       </div>
       <div class="row form-group">
