@@ -1,5 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
+import { Http, Response } from "@angular/http";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx';
+
 import { User } from "../model/user.model";
 import { LoginUser } from "../model/login-user.model";
 
@@ -13,6 +16,17 @@ export class UserService{
     }
 
     loginUser(user: LoginUser) {
-        return this.http.post('api/users/login', user);
+        return this.http.post('api/users/login', user)
+            .map(
+                (response: Response) => {
+                    const user: User = response.json();
+                    return user;
+                }
+            )
+            .catch(
+                (error: Response) => {
+                    return Observable.throw(error);
+                }
+            );
     }
 }

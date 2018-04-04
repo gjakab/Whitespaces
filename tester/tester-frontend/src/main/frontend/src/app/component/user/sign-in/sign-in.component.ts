@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { UserService } from '../../../service/user.service';
 import { LoginUser } from '../../../model/login-user.model';
+import { User } from '../../../model/user.model';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,6 +11,8 @@ import { LoginUser } from '../../../model/login-user.model';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
+
+  public exampleUser: User;
 
   constructor(private userService: UserService) { }
 
@@ -21,7 +24,7 @@ export class SignInComponent implements OnInit {
     const newUser = new LoginUser(value.email, value.password);
     this.userService.loginUser(newUser)
       .subscribe(
-        (response) => console.log(response),
+        (user: User) => this.exampleUser = user,
         (error) => console.log(error)
       );
   }
