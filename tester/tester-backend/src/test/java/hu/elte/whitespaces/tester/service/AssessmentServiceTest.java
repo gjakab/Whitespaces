@@ -15,6 +15,7 @@ import org.junit.Test;
 import hu.elte.whitespaces.tester.model.Assessment;
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.repository.AssessmentRepository;
+import hu.elte.whitespaces.tester.repository.UserRepository;
 
 public class AssessmentServiceTest {
 	
@@ -22,12 +23,13 @@ public class AssessmentServiceTest {
 	private final static int USER_ID = 100;
 	
 	private final AssessmentRepository assessmentRepository = mock(AssessmentRepository.class);
+	private final UserRepository userRepository = mock(UserRepository.class);
 	
 	private AssessmentService assessmentService;
 	
 	@Before
 	public void setUp() {
-		assessmentService = new AssessmentService(assessmentRepository);
+		assessmentService = new AssessmentService(assessmentRepository, userRepository);
 	}
 		
 	@Test
@@ -71,6 +73,9 @@ public class AssessmentServiceTest {
 		assessment.setId(ASSESSMENT_ID);
 		User user = new User();
 		user.setId(USER_ID);
+		user.setEmail("email");
+
+        when(userRepository.findByEmail("email")).thenReturn(Optional.of(user));
 		when(assessmentRepository.save(assessment)).thenReturn(assessment);
 		
 		assertEquals(assessmentService.create(assessment, user), assessment);

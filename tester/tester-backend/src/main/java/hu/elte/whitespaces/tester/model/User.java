@@ -119,6 +119,6 @@ public class User extends BaseEntity {
     }
 
     public enum Role {
-        STUDENT, TEACHER, ADMIN
+        STUDENT, TEACHER, ADMIN, GUEST
     }
 }
