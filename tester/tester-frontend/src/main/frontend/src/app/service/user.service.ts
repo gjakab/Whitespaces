@@ -12,7 +12,18 @@ export class UserService{
     constructor(private http: Http) {}
 
     registerUser(user: User) {
-        return this.http.post('api/users', user);
+        return this.http.post('api/users', user)
+            .map(
+                (response: Response) => {
+                        const user: User = response.json();
+                        return user;
+                    }
+                )
+            .catch(
+                (error: Response) => {
+                    return Observable.throw(error);
+                }
+            );
     }
 
     loginUser(user: LoginUser) {

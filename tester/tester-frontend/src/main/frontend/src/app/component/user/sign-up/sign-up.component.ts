@@ -11,6 +11,8 @@ import { UserService } from '../../../service/user.service';
 })
 export class SignUpComponent implements OnInit {
 
+  public exampleUser: User;
+
   constructor(private userService: UserService) { }
 
   ngOnInit() {
@@ -18,18 +20,17 @@ export class SignUpComponent implements OnInit {
 
   onRegister(form: NgForm){
     const value = form.value;
-    console.log(value);
     const newUser = new User(value.password,
                              value.email,
                              value.role,
                              value.firstName,
                              value.lastName,
                              value.school);
-    console.log(newUser);
+    
     this.userService.registerUser(newUser)
       .subscribe(
-        (response) => console.log(response),
-        (error) => console.log(error)
+          (user: User) => this.exampleUser = user,
+          (error) => console.log(error)
       );
   }
 }
