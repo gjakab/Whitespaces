@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h3>Belépés</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <form (ngSubmit)="onRegister(f)" #f="ngForm">
+      <div class="row form-group">
+        <div class="col-sm">
+          <label for="email">Email</label>
+          <input type="text" id="email" class="form-control" name="email"
+                 ngModel required pattern="[0-9a-zA-Z]+@[0-9a-zA-Z]+\.[a-z]+" minlength="4">
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-sm">
+          <label for="password">Jelszó</label>
+          <input type="password" id="password" class="form-control" name="password"
+                 ngModel required minlength="4">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <button class="btn btn-success" type="submit" [disabled]="!f.valid">Belépés</button>
+          <button class="btn btn-danger" type="reset">Törlés</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
