@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-12 text-center">
+    <h3>Tesztek</h3>
+  </div>
+</div>
+  
+<div class="row justify-content-center">
+  <div *ngIf="!quizzes; else loaded">
+    <i class="fa fa-cog fa-spin" style="font-size:125px"></i>
+  </div>
+
+
+  <ng-template #loaded>
+    <div *ngIf="quizzes.length === 0; else atleastone">
+      <div class="text-center">
+        <h5>Nincsenek tesztjeid!</h5>
+      </div>
+    </div>
+
+    <ng-template #atleastone>
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>Név</th>
+            <th><i class="far fa-calendar-alt"></i> Dátum</th>
+            <th><i class="fas fa-chart-bar"></i> Statisztika</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let quiz of quizzes | paginate: { itemsPerPage: 3, currentPage: p }">
+            <td>{{ quiz.name }}</td>
+            <td>{{ getDate(quiz.creationDate) }}</td>
+            <td><span class="badge badge-pill badge-primary">{{ quiz.stat }}</span></td>
+            <td>
+              <button type="button" class="btn btn-info" routerLink="/users/quizlist/{{quiz.id}}">
+                <i class="fas fa-arrow-circle-right"></i>
+              </button>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="p =$event" autoHide="true" previousLabel="Előző" nextLabel="Következő"></pagination-controls>
+    </ng-template>
+  </ng-template>
+</div>
