@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppComponent } from './app.component';
 import { SignInComponent } from './component/user/sign-in/sign-in.component';
@@ -28,7 +29,8 @@ import { QuizListComponent } from './component/user/teacher/quiz-list/quiz-list.
     AppRoutingModule,
     FormsModule,
     HttpModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxDatatableModule
   ],
   providers: [
     UserService,

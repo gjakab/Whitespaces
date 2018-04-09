@@ -1,10 +1,95 @@
-<div class="row">
+<div class="row mb-40">
   <div class="col-12 text-center">
-    <h3>Tesztek</h3>
+    <h3>Quizek</h3>
   </div>
 </div>
   
-<div class="row justify-content-center">
+
+  <div *ngIf="!temp; else loaded">
+    <div class="row justify-content-center">
+      <i class="fa fa-cog fa-spin" style="font-size:125px"></i>
+    </div>
+  </div>
+
+
+  <ng-template #loaded>
+    <div *ngIf="temp.length === 0; else atleastone">
+      <div class="text-center">
+        <h5>Nincsenek quizjeid!</h5>
+      </div>
+    </div>
+
+    <ng-template #atleastone>
+        <input
+        type='text'
+        style='padding:8px;margin:15px auto;width:30%;'
+        placeholder='Keresés quiz név alapján...'
+        (keyup)='updateFilter($event)'
+      />
+      
+      <ngx-datatable
+        #table
+        class="bootstrap"
+        [rows]="quizzes"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="40"
+        [rowHeight]="'70'"
+        [limit]="3"
+        [messages]="messages"
+        >
+        <ngx-datatable-column name="Name" [sortable]="true">
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+              <span (click)="sort()">Név</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+              {{value}}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="creationDate">
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+              <span (click)="sort()"><i class="far fa-calendar-alt"></i> Dátum</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+              {{getDate(value)}}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Stat">
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+              <span (click)="sort()"><i class="fas fa-chart-bar"></i> Statisztika</span>
+          </ng-template>
+          <ng-template let-value="value"  ngx-datatable-cell-template>
+            <span class="badge badge-pill badge-primary">{{value}}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="" prop="id">
+          <ng-template let-row="row" let-id="row" ngx-datatable-cell-template>
+            <button type="button" class="btn btn-danger" (click)="delete(id)">
+                <span><i class="fas fa-trash-alt"></i> Törlés</span>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="">
+          <ng-template let-row="row"  ngx-datatable-cell-template>
+            <a href="#/users/quizlist/{{row['id']}}">
+              <button type="button" class="btn btn-info">
+                <span><i class="fas fa-arrow-circle-right"></i> Megnyitás</span>
+              </button>
+            </a>
+          </ng-template>
+        </ngx-datatable-column>
+        
+      </ngx-datatable>
+    </ng-template>
+
+  </ng-template>
+
+
+<!-- <div class="row justify-content-center">
   <div *ngIf="!quizzes; else loaded">
     <i class="fa fa-cog fa-spin" style="font-size:125px"></i>
   </div>
@@ -13,7 +98,7 @@
   <ng-template #loaded>
     <div *ngIf="quizzes.length === 0; else atleastone">
       <div class="text-center">
-        <h5>Nincsenek tesztjeid!</h5>
+        <h5>Nincsenek quizjeid!</h5>
       </div>
     </div>
 
@@ -43,4 +128,4 @@
       <pagination-controls (pageChange)="p =$event" autoHide="true" previousLabel="Előző" nextLabel="Következő"></pagination-controls>
     </ng-template>
   </ng-template>
-</div>
+</div> -->
