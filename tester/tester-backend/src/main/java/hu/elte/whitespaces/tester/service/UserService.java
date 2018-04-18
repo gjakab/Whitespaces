@@ -32,7 +32,9 @@ public class UserService {
 
     public User login(User user) {
         Optional<User> result = repository.findByEmail(user.getEmail());
-
+        
+        System.out.println("PASSWORD: " + passwordEncoder.encode("1234"));
+        
         if(result.isPresent() && passwordEncoder.matches(user.getPassword(), result.get().getPassword())) {
             this.user = result.get();
             return this.user;
