@@ -38,8 +38,8 @@ public class Question extends BaseEntity {
     @JoinColumn(name = "ASSESSMENT_ID")
     private Assessment assessment;
 	
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "question", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "QUESTION_ID")
     private List<Answer> answers;
 	
 }

@@ -41,8 +41,8 @@ public class Assessment extends BaseEntity {
     @JoinColumn(name = "USER_ID")
     private User user;
     
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "assessment", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ASSESSMENT_ID")
     private List<Question> questions;
     
     @JsonIgnore

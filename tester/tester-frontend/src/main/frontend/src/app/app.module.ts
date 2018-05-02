@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -14,6 +14,7 @@ import { UserService } from './service/user.service';
 import { QuizService } from './service/quiz.service';
 import { HeaderComponent } from './component/header/header.component';
 import { QuizListComponent } from './component/user/teacher/quiz-list/quiz-list.component';
+import { NewQuizComponent } from './component/user/teacher/new-quiz/new-quiz.component';
 
 
 @NgModule({
@@ -22,12 +23,14 @@ import { QuizListComponent } from './component/user/teacher/quiz-list/quiz-list.
     SignInComponent,
     SignUpComponent,
     HeaderComponent,
-    QuizListComponent
+    QuizListComponent,
+    NewQuizComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     NgxPaginationModule,
     NgxDatatableModule
