@@ -6,7 +6,7 @@
 
 <div class="row justify-content-center">
   <div class="col-12 col-sm-6 col-sm-offset-3">
-    <form [formGroup]="myform" (ngSubmit)="onSubmit()" (ngReset)="onReset()" novalidate>
+    <form [formGroup]="myform" (ngSubmit)="onSubmit()" novalidate>
 
         <div class="form-group">
           <label>Név</label>
@@ -33,7 +33,7 @@
         </div>
 
         <div class="alert alert-info" role="alert">
-          A teszt tartalmát a következő formátumban add meg:<br>
+          A quiz tartalmát a következő formátumban add meg:<br>
           # Kérdés1<br>
           ## Kategória<br>
           ### Rossz válasz1<br>
@@ -59,9 +59,14 @@
               Kötelező kitölteni
           </div>
         </div>
+        <div ng-show="error" 
+             class="text-center mb-15"
+             style="color: #dc3545">
+          {{error}}
+        </div>
 
       <button class="btn btn-primary" type="submit">Submit</button>
-      <button class="btn btn-primary float-right" type="reset">Reset</button>
+      <button class="btn btn-primary float-right" type="reset" (click)="onReset()">Reset</button>
     </form>
 
   </div>
