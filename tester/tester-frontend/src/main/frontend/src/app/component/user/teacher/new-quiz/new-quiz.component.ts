@@ -28,6 +28,7 @@ export class NewQuizComponent implements OnInit {
   name: FormControl; 
   content: FormControl;
   error: string;
+  success: string;
   regexp: RegExp = new RegExp(/^[#]+$/)
   
   constructor(private quizService: QuizService) { }
@@ -57,13 +58,15 @@ export class NewQuizComponent implements OnInit {
   }
 
   onSubmit() {
+    this.success = '';
+    this.error = '';
     if (this.myform.valid) {      
       try {
         let questions = this.parseQuestions();
         this.createNewQuiz(new newQuizDTO(this.name.value, questions));
         console.log("Form Submitted!");
+        this.success = "Az új quiz bekerült az adatbázisba!"
         this.myform.reset();
-        this.error = '';
       } catch (e) {
         console.log("Form not valid2");
         this.error = 'Nem megfelelő az adat(ok) formátuma!';
@@ -76,6 +79,7 @@ export class NewQuizComponent implements OnInit {
 
   onReset() {
     this.error = '';
+    this.success = '';
     this.myform.reset();
   }
 

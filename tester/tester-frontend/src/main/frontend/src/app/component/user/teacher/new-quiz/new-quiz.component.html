@@ -59,10 +59,13 @@
               Kötelező kitölteni
           </div>
         </div>
-        <div ng-show="error" 
-             class="text-center mb-15"
-             style="color: #dc3545">
+        <div *ngIf="error" 
+             class="text-center mb-15 alert alert-danger">
           {{error}}
+        </div>
+        <div *ngIf="success" 
+             class="text-center mb-15 alert alert-success">
+          {{success}}
         </div>
 
       <button class="btn btn-primary" type="submit">Submit</button>
