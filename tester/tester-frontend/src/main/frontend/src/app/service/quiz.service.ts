@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import { Quiz } from "../model/quiz.model";
+import { newQuizDTO } from "../model/newQuizDTO.model";
 
 @Injectable()
 export class QuizService{
@@ -30,5 +31,15 @@ export class QuizService{
           return Observable.throw(error);
         }
       )
+  }
+
+  createQuiz(newQuiz: newQuizDTO) {
+    console.log("UJ QUIZ", newQuiz)
+    return this.http.post('/api/users/quizzes/', newQuiz)
+    .catch(
+      (error: Response) => {
+        return Observable.throw(error);
+      }
+    )
   }
 }

@@ -1,5 +1,6 @@
 package hu.elte.whitespaces.tester.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +59,8 @@ public class AssessmentService {
 	public Assessment create(Assessment assessment, User user) {
 	    User dbUser = userRepository.findByEmail(user.getEmail()).get();
 		assessment.setUser(dbUser);
+		assessment.setCreationDate(new Timestamp(System.currentTimeMillis()));
+		assessment.setStat(0.0);
 		return assessmentRepository.save(assessment);
 	}
 	
