@@ -7,11 +7,12 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+
 import { newQuizDTO } from '../../../../model/newQuizDTO.model';
 import { Question } from '../../../../model/question.model';
 import { Answer } from '../../../../model/answer.model';
 import { QuizService } from '../../../../service/quiz.service';
-
 
 @Component({
   selector: 'app-new-quiz',
@@ -27,8 +28,10 @@ export class NewQuizComponent implements OnInit {
   myform: FormGroup;
   name: FormControl; 
   content: FormControl;
-  error: string;
-  success: string;
+  error: boolean = false;
+  success: boolean = false;
+  successText: string = "Az új quiz bekerült az adatbázisba!";
+  errorText: string = 'Nem megfelelő az adat(ok) formátuma vagy már van ilyen nevű teszt!';
   regexp: RegExp = new RegExp(/^[#]+$/)
   
   constructor(private quizService: QuizService) { }
@@ -58,28 +61,26 @@ export class NewQuizComponent implements OnInit {
   }
 
   onSubmit() {
-    this.success = '';
-    this.error = '';
+    this.error = false;
+    this.success = false;
     if (this.myform.valid) {      
       try {
         let questions = this.parseQuestions();
         this.createNewQuiz(new newQuizDTO(this.name.value, questions));
         console.log("Form Submitted!");
-        this.success = "Az új quiz bekerült az adatbázisba!"
-        this.myform.reset();
       } catch (e) {
         console.log("Form not valid2");
-        this.error = 'Nem megfelelő az adat(ok) formátuma!';
+        this.error = true;
       }
     } else {
       console.log("Form not valid1");
-      this.error = 'Nem megfelelő az adat(ok) formátuma!';
+      this.error = true;
     }
   }
 
   onReset() {
-    this.error = '';
-    this.success = '';
+    this.error = false;
+    this.success = false;
     this.myform.reset();
   }
 
@@ -127,7 +128,15 @@ export class NewQuizComponent implements OnInit {
   createNewQuiz(newQuiz: newQuizDTO) {
     this.quizService.createQuiz(newQuiz)
     .subscribe(
-      (error) => console.log(error)
+      (response) => {
+        this.error = false;
+        this.success = true;
+        this.myform.reset();
+      },
+      (error) => { 
+        this.error = true;
+        this.success = false;
+      }
     );
   }
 

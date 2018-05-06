@@ -15,6 +15,7 @@ import { QuizService } from './service/quiz.service';
 import { HeaderComponent } from './component/header/header.component';
 import { QuizListComponent } from './component/user/teacher/quiz-list/quiz-list.component';
 import { NewQuizComponent } from './component/user/teacher/new-quiz/new-quiz.component';
+import { ViewQuizComponent } from './component/user/teacher/view-quiz/view-quiz.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { NewQuizComponent } from './component/user/teacher/new-quiz/new-quiz.com
     HeaderComponent,
     QuizListComponent,
     NewQuizComponent,
+    ViewQuizComponent,
   ],
   imports: [
     BrowserModule,

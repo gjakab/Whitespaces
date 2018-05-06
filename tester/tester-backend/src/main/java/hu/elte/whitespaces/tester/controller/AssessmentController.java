@@ -62,7 +62,6 @@ public class AssessmentController {
 	//@Role({TEACHER, ADMIN})
 	@PostMapping("")
 	public ResponseEntity<Assessment> create(@Valid @RequestBody Assessment assessment) {
-		System.out.println("ASSESMENT: " + assessment);
 		Assessment saved = assessmentService.create(assessment, userService.getCurrentUser());
 		if (saved != null) {
 			return ResponseEntity.ok(saved);
