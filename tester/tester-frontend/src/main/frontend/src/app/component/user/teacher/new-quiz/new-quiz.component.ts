@@ -7,7 +7,6 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
 
 import { newQuizDTO } from '../../../../model/newQuizDTO.model';
 import { Question } from '../../../../model/question.model';

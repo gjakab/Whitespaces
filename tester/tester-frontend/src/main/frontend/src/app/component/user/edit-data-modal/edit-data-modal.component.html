@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="myform">
+    <div class="form-group">
+      <label for="data">Szöveg</label>
+      <input type="text"
+              id="data"
+              class="form-control"
+              formControlName="data"
+              required
+              [ngClass]="{
+                'is-invalid': data.invalid && data.dirty,
+                'is-valid': data.valid && data.dirty
+                }">
+        <div *ngIf="data.invalid && (data.dirty || data.touched)"
+              class="invalid-feedback">
+          Helytelen formátum
+        </div>
+    </div>
+    <div *ngIf="trueAnswer !== null">
+      <div class="form-group">
+        <label for="types">Helyes válasz?</label>
+          <div class="row">
+            <div class="col-3">
+              <select id="types" class="form-control" formControlName="dataType">
+                <option *ngFor="let t of types" [ngValue]="t">{{t}}</option>
+              </select>
+            </div>
+          </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary mr-auto" (click)="onSubmit()">Mentés</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>

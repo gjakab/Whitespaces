@@ -71,7 +71,7 @@ export class QuizListComponent implements OnInit {
         (quizzes: Quiz[]) => {
           this.quizzes = quizzes;
           this.temp = [...quizzes];
-          console.log(quizzes)
+          console.log("RESPONSE", quizzes)
           },
         (error) => console.log(error)
       )

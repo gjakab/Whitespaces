@@ -43,7 +43,10 @@ public class AssessmentService {
 		Iterable<Assessment> assessments = assessmentRepository.findAllByUserId(userId);
 		List<Assessment> results = new ArrayList<>();
 		
-		assessments.forEach(assessment -> results.add(assessment));
+		assessments.forEach(assessment -> {
+			assessment.setQuestions(null);
+			results.add(assessment);
+		});
 		return results;
 	}
 	

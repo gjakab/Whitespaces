@@ -16,7 +16,8 @@ export class QuizService{
       .map((response: Response) => {
         const quizzes: Quiz[] = response.json();
         return quizzes;
-      }).catch(
+      })
+      .catch(
         (error: Response) => {
           return Observable.throw(error);
         }
@@ -36,10 +37,23 @@ export class QuizService{
   createQuiz(newQuiz: newQuizDTO) {
     console.log("UJ QUIZ", newQuiz)
     return this.http.post('/api/users/quizzes/', newQuiz)
-    .catch(
-      (error: Response) => {
-        return Observable.throw(error);
-      }
-    )
+      .catch(
+        (error: Response) => {
+          return Observable.throw(error);
+        }
+      )
+  }
+
+  getQuizById(quizId: number) {
+    return this.http.get('/api/users/quizzes/' + quizId)
+      .map((response: Response) => {
+        const quiz: Quiz = response.json();
+        return quiz;
+      })
+      .catch(
+        (error: Response) => {
+          return Observable.throw(error);
+        }
+      )
   }
 }

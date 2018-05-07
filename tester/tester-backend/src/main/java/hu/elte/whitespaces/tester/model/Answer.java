@@ -32,5 +32,10 @@ public class Answer extends BaseEntity {
     @ManyToOne(targetEntity = Question.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
+    
+    @Override
+    public String toString() {
+    	return "answer: " + this.answer + ", right: " + this.rightAnswer;
+    }
 	
 }

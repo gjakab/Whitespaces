@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { SignInComponent } from './component/user/sign-in/sign-in.component';
@@ -16,7 +17,7 @@ import { HeaderComponent } from './component/header/header.component';
 import { QuizListComponent } from './component/user/teacher/quiz-list/quiz-list.component';
 import { NewQuizComponent } from './component/user/teacher/new-quiz/new-quiz.component';
 import { ViewQuizComponent } from './component/user/teacher/view-quiz/view-quiz.component';
-
+import { EditDataModalComponent } from './component/user/edit-data-modal/edit-data-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +28,10 @@ import { ViewQuizComponent } from './component/user/teacher/view-quiz/view-quiz.
     QuizListComponent,
     NewQuizComponent,
     ViewQuizComponent,
+    EditDataModalComponent,
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -45,6 +48,9 @@ import { ViewQuizComponent } from './component/user/teacher/view-quiz/view-quiz.
       useClass: HashLocationStrategy
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    EditDataModalComponent,
+  ]
 })
 export class AppModule { }

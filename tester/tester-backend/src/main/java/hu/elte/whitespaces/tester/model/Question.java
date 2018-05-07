@@ -1,5 +1,6 @@
 package hu.elte.whitespaces.tester.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -41,5 +42,10 @@ public class Question extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "QUESTION_ID")
     private List<Answer> answers;
+    
+    @Override
+    public String toString() {
+    	return "question: " + this.question + ", answers: " + Arrays.toString(this.getAnswers().toArray());
+    }
 	
 }

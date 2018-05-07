@@ -47,7 +47,6 @@ public class AssessmentController {
 	@GetMapping(QUIZ_ID)
 	public ResponseEntity<Assessment> getAssessmentById(@PathVariable Integer quizId) {
 		Assessment response = assessmentService.getAssessmentById(quizId);
-		
 		if (response != null) {
 			return ResponseEntity.ok(response);
 		}
