@@ -16,6 +16,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditDataModalComponent } from '../../edit-data-modal/edit-data-modal.component';
 import { Question } from '../../../../model/question.model';
 import { Answer } from '../../../../model/answer.model';
+import { QuestionService } from '../../../../service/question.service';
 
 @Component({
   selector: 'app-view-quiz',
@@ -29,6 +30,7 @@ export class ViewQuizComponent implements OnInit {
 
   constructor(
     private quizService: QuizService,
+    private questionService: QuestionService,
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal
   ) { }
@@ -45,36 +47,48 @@ export class ViewQuizComponent implements OnInit {
     );
   }
 
-  openModal(type: string, data: Question | Answer, i: number, j: number = null) {
+  openModal(question: Question, answer: Answer, i: number, j: number = null) {
     const modalRef = this.modalService.open(EditDataModalComponent, { centered: true });
 
-    var tmp;
-    if (type === this.typesEnum.QUESTION) {
-      tmp = data as Question
-    } else {
-      tmp = data as Answer;
-    }
-    modalRef.componentInstance.title = (type == this.typesEnum.QUESTION) ? this.typesEnum.QUESTION : this.typesEnum.ANSWER;
-    modalRef.componentInstance.defaultValue = (type == this.typesEnum.QUESTION) ? tmp.question : tmp.answer;
-    modalRef.componentInstance.trueAnswer = (type == this.typesEnum.QUESTION) ? null : tmp.rightAnswer;
+    modalRef.componentInstance.title = (answer === null) ? this.typesEnum.QUESTION : this.typesEnum.ANSWER;
+    modalRef.componentInstance.defaultCategory = (answer === null) ? question.category : null;
+    modalRef.componentInstance.defaultValue = (answer === null) ? question.question : answer.answer;
+    modalRef.componentInstance.trueAnswer = (answer === null) ? null : answer.rightAnswer;
 
     modalRef.componentInstance.output.subscribe((output) => {
       console.log("OUTPUT", output)
-      this.updateData(type, output, i, j);
+      this.updateData(question, answer, output, i , j);
     });
   }
 
-  updateData(type: string, newData: string[], i: number, j: number = null) {
-    if (type === this.typesEnum.QUESTION) {
+  updateData(question: Question, answer: Answer, newData: string[], i: number, j: number) {
+    if (answer === null) {
       this.quiz.questions[i].question = newData[0];
+      this.updateQuestion(question.id, newData[0], newData[1]);
     } else {
       this.quiz.questions[i].answers[j].answer = newData[0];
-      this.quiz.questions[i].answers[j].rightAnswer = newData[1] === "Igen" ? true : false;
+      this.quiz.questions[i].answers[j].rightAnswer = newData[2] === "Igen" ? true : false;
     }
   }
 
-  deleteQuestion(index: number) {
+  updateQuestion(id: number, question: string, category: string) {
+    this.questionService.updateQuestion(this.quizId, new Question(question, null, null, id))
+  }
+
+  deleteQuestion(index: number, questionId: number) {
     this.quiz.questions.splice(index, 1);
+    
+/*     this.questionService.deleteQuestion(this.quizId, questionId).subscribe(() => {
+      this.quiz.questions.splice(index, 1);
+    }); */
+  }
+
+  deleteAnswer(i: number, j: number, questionId: number, answerId: number) {
+    this.quiz.questions[i].answers.splice(j, 1);
+    
+/*     this.questionService.deleteQuestion(this.quizId, questionId).subscribe(() => {
+      this.quiz.questions.splice(index, 1);
+    }); */
   }
 
 

@@ -23,6 +23,29 @@
   margin-bottom: 20px;
 }
 
+.ml-15 {
+  margin-left: 15px;
+}
+
+.pl-15 {
+  padding-left: 15px;
+}
+
+.pl-40 {
+  padding-left: 40px;
+}
+
+.pr-40 {
+  padding-right: 40px;
+}
+
 .inline {
   display: inline
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

@@ -13,6 +13,7 @@ import { SignUpComponent } from './component/user/sign-up/sign-up.component';
 import { AppRoutingModule } from './routing/app-routing.module';
 import { UserService } from './service/user.service';
 import { QuizService } from './service/quiz.service';
+import { QuestionService } from './service/question.service';
 import { HeaderComponent } from './component/header/header.component';
 import { QuizListComponent } from './component/user/teacher/quiz-list/quiz-list.component';
 import { NewQuizComponent } from './component/user/teacher/new-quiz/new-quiz.component';
@@ -43,6 +44,7 @@ import { EditDataModalComponent } from './component/user/edit-data-modal/edit-da
   providers: [
     UserService,
     QuizService,
+    QuestionService,
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy

@@ -15,12 +15,11 @@
     </div>
 
     <ng-template #loaded>
-      <p>Név: {{quiz.name}}</p>
+      <h5 class="mb-20">{{quiz.name}}</h5>
 
-      <ol style="padding-left:15px">
-        <li *ngFor="let question of quiz.questions; let i = index" style="padding-left:10px" class="mb-20"> 
+<!--         <li *ngFor="let question of quiz.questions; let i = index" style="padding-left:10px" class="list-group-item mb-40"> 
           <p class="inline mr-10">
-            {{question.question}}
+            Kérdés: {{question.question}}
           </p>
           <button class="btn btn-danger float-right"
                   [disabled]="quiz.questions.length === 1"
@@ -28,12 +27,75 @@
                   <i class="fas fa-trash-alt"></i>
           </button>
           <button class="btn btn-warning float-right mr-10"
-                  (click)="openModal(typesEnum.QUESTION, question, i)">
+                  (click)="openModal(question, null, i)">
                   <i class="fas fa-edit"></i>
           </button>
+          <div class="row">
+            <p class="ml-15 mt-15">
+              Kategória: {{question.category}}
+            </p>
+          </div> -->
 
-        </li>
-      </ol>
+          <div class="card mb-40" *ngFor="let question of quiz.questions; let i = index">
+
+              <div class="card-header pl-40 pr-40">
+                <p class="text-center">{{question.question}}</p>
+                <div class="text-center">
+                  {{question.category}}
+                </div>
+                <button class="btn btn-danger float-right"
+                      [disabled]="quiz.questions.length === 1"
+                      (click)="deleteQuestion(i, question.id)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+                <button class="btn btn-warning float-right mr-10"
+                        (click)="openModal(question, null, i)">
+                  <i class="fas fa-edit"></i>
+                </button>
+            </div>
+
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-primary mb-20" 
+                   *ngFor="let answer of question.answers; let j = index"
+                   [ngClass]="{ 
+                      'mb-20': true,
+                      'list-group-item': true,
+                      'list-group-item-success': answer.rightAnswer,
+                      'list-group-item-danger': !answer.rightAnswer
+                     }">
+                  {{answer.answer}}
+                  <button class="btn btn-danger float-right"
+                          [disabled]="question.answers.length === 1"
+                          (click)="deleteAnswer(i, j, question.id, answer.id)">
+                  <i class="fas fa-trash-alt"></i>
+                  </button>
+                  <button class="btn btn-warning float-right mr-10"
+                          (click)="openModal(question, answer, i, j)">
+                          <i class="fas fa-edit"></i>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+<!--           <ul style="padding-left:15px">
+            <li *ngFor="let answer of question.answers; let j = index" style="padding-left:10px" class="mb-20">
+              {{answer.answer}}
+              <button class="btn btn-danger float-right"
+                      [disabled]="question.answers.length === 1"
+                      (click)="deleteQuestion(i)">
+              <i class="fas fa-trash-alt"></i>
+              </button>
+              <button class="btn btn-warning float-right mr-10"
+                      (click)="openModal(question, answer, i, j)">
+                      <i class="fas fa-edit"></i>
+              </button>
+            </li>
+          </ul> -->
+
+      
     </ng-template>
 
   </div>

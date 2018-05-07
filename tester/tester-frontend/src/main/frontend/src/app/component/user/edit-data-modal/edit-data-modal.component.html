@@ -4,8 +4,10 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
+
 <div class="modal-body">
   <form [formGroup]="myform">
+
     <div class="form-group">
       <label for="data">Szöveg</label>
       <input type="text"
@@ -22,6 +24,26 @@
           Helytelen formátum
         </div>
     </div>
+
+    <div *ngIf="trueAnswer === null">
+      <div class="form-group">
+        <label for="category">Kategória</label>
+        <input type="text"
+              id="category"
+              class="form-control"
+              formControlName="category"
+              required
+              [ngClass]="{
+                'is-invalid': category.invalid && category.dirty,
+                'is-valid': category.valid && category.dirty
+                }">
+        <div *ngIf="category.invalid && (category.dirty || category.touched)"
+              class="invalid-feedback">
+          Helytelen formátum
+        </div>
+      </div>
+    </div>
+
     <div *ngIf="trueAnswer !== null">
       <div class="form-group">
         <label for="types">Helyes válasz?</label>
@@ -34,9 +56,11 @@
           </div>
       </div>
     </div>
+
   </form>
 </div>
+
 <div class="modal-footer">
     <button class="btn btn-primary mr-auto" (click)="onSubmit()">Mentés</button>
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Bezár</button>
 </div>
