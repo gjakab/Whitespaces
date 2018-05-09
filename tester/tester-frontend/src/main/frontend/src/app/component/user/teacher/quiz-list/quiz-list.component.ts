@@ -20,7 +20,6 @@ import * as moment from 'moment';
 export class QuizListComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   private quizzes: Quiz[];
-  private temp: Quiz[];
   private messages = {
     emptyMessage: `
       <div class="mt-15 mb-15 text-center">
@@ -28,6 +27,7 @@ export class QuizListComponent implements OnInit {
       </div>
     `
   }
+  temp: Quiz[];
 
   constructor(private quizService: QuizService) { }
 
