@@ -26,6 +26,7 @@ import hu.elte.whitespaces.tester.service.UserService;
 @RestController
 @RequestMapping("/api/users/quizzes")
 public class AssessmentController {
+
 	private final static String QUIZ_ID ="/{quizId}";
 	private final static String QUIZ_LIST ="/all";
 	
@@ -61,6 +62,7 @@ public class AssessmentController {
 	//@Role({TEACHER, ADMIN})
 	@PostMapping("")
 	public ResponseEntity<Assessment> create(@Valid @RequestBody Assessment assessment) {
+		System.out.println("ASSESMENT: " + assessment);
 		Assessment saved = assessmentService.create(assessment, userService.getCurrentUser());
 		if (saved != null) {
 			return ResponseEntity.ok(saved);
