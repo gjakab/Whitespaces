@@ -26,7 +26,7 @@ import hu.elte.whitespaces.tester.service.UserService;
 @RestController
 @RequestMapping("/api/users/quizzes")
 public class AssessmentController {
-	
+
 	private final static String QUIZ_ID ="/{quizId}";
 	private final static String QUIZ_LIST ="/all";
 	
