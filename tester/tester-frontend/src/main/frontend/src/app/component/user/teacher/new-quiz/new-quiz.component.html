@@ -1,0 +1,77 @@
+<div class="row mb-40">
+  <div class="col-12 text-center">
+    <h3>Quiz létrehozása</h3>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-sm-6 col-sm-offset-3">
+    <form [formGroup]="myform" (ngSubmit)="onSubmit()" novalidate>
+
+        <div class="form-group">
+          <label>Név</label>
+          <input type="text"
+                  class="form-control"
+                  formControlName="name"
+                  required
+                  [ngClass]="{
+                    'is-invalid': name.invalid && name.dirty,
+                    'is-valid': name.valid && name.dirty
+                   }">
+          <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="invalid-feedback">
+              Kötelező kitölteni
+          </div>
+          <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="invalid-feedback">
+              Legalább 2 karakter hosszú legyen
+          </div>
+          <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="invalid-feedback">
+              Kezdődjön nagy betűvel
+          </div>
+        </div>
+
+        <div class="alert alert-info" role="alert">
+          A quiz tartalmát a következő formátumban add meg:<br>
+          # Kérdés1<br>
+          ## Kategória<br>
+          ### Rossz válasz1<br>
+          #### Jó válasz1<br>
+          ...<br>
+          # Kérdés2 ...
+        </div>
+
+        <div class="form-group">
+          <label for="contentTextArea">Kérdések - válaszok</label>
+          <textarea 
+                    class="form-control" 
+                    id="exampleTextarea"
+                    formControlName="content"
+                    required
+                    [ngClass]="{
+                      'is-invalid': content.invalid && content.dirty,
+                      'is-valid': content.valid && content.dirty
+                     }"
+                    rows="20"></textarea>
+          <div *ngIf="content.invalid && (content.dirty || content.touched)"
+                class="invalid-feedback">
+              Kötelező kitölteni
+          </div>
+        </div>
+        <div *ngIf="error" 
+             class="text-center mb-15 alert alert-danger">
+          {{error}}
+        </div>
+        <div *ngIf="success" 
+             class="text-center mb-15 alert alert-success">
+          {{success}}
+        </div>
+
+      <button class="btn btn-primary" type="submit">Submit</button>
+      <button class="btn btn-primary float-right" type="reset" (click)="onReset()">Reset</button>
+    </form>
+
+  </div>
+</div>
+<pre>{{myform.value | json}}</pre>

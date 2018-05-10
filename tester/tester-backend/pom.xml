@@ -16,13 +16,6 @@
 
 	<dependencies>
         <dependency>
-            <groupId>hu.elte.whitespaces</groupId>
-            <artifactId>tester-frontend</artifactId>
-            <version>${project.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -41,6 +34,11 @@
 			<version>1.16.20</version>
 			<scope>provided</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>4.2.3.RELEASE</version>
+        </dependency>
 		
         <!-- Dependencies for testing -->
 		<dependency>
