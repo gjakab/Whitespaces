@@ -19,6 +19,7 @@ import { QuizListComponent } from './component/user/teacher/quiz-list/quiz-list.
 import { NewQuizComponent } from './component/user/teacher/new-quiz/new-quiz.component';
 import { ViewQuizComponent } from './component/user/teacher/view-quiz/view-quiz.component';
 import { EditDataModalComponent } from './component/user/edit-data-modal/edit-data-modal.component';
+import { AnswerService } from './service/answer.service';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { EditDataModalComponent } from './component/user/edit-data-modal/edit-da
     UserService,
     QuizService,
     QuestionService,
+    AnswerService,
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy

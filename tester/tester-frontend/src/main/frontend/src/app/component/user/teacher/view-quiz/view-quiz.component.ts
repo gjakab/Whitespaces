@@ -17,6 +17,7 @@ import { EditDataModalComponent } from '../../edit-data-modal/edit-data-modal.co
 import { Question } from '../../../../model/question.model';
 import { Answer } from '../../../../model/answer.model';
 import { QuestionService } from '../../../../service/question.service';
+import { AnswerService } from '../../../../service/answer.service';
 
 @Component({
   selector: 'app-view-quiz',
@@ -30,6 +31,7 @@ export class ViewQuizComponent implements OnInit {
 
   constructor(
     private quizService: QuizService,
+    private answerService: AnswerService,
     private questionService: QuestionService,
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal
@@ -65,21 +67,26 @@ export class ViewQuizComponent implements OnInit {
     if (answer === null) {
       this.quiz.questions[i].question = newData[0];
       this.quiz.questions[i].category = newData[1];
-      this.updateQuestion(question.id, newData[0], newData[1]);
+      this.updateQuestion(new Question(newData[0], newData[1], null, question.id));
     } else {
+      const rightAnswer = newData[2] === "Igen" ? true : false;
       this.quiz.questions[i].answers[j].answer = newData[0];
-      this.quiz.questions[i].answers[j].rightAnswer = newData[2] === "Igen" ? true : false;
+      this.quiz.questions[i].answers[j].rightAnswer = rightAnswer;
+      this.updateAnswer(question.id, new Answer(newData[0], rightAnswer, answer.id));
     }
   }
 
-  updateQuestion(id: number, question: string, category: string) {
-    this.questionService.updateQuestion(this.quizId, new Question(question, category, null, id)).subscribe(updated => {
+  updateQuestion(question: Question) {
+    this.questionService.updateQuestion(this.quizId, question).subscribe(updated => {
+    });
+  }
+
+  updateAnswer(questionId: number, answer: Answer) {
+    this.answerService.updateAnswer(questionId, answer).subscribe(updated => {
     });
   }
 
   deleteQuestion(index: number, questionId: number) {
-    //this.quiz.questions.splice(index, 1);
-    
     this.questionService.deleteQuestion(this.quizId, questionId).subscribe(() => {
       this.quiz.questions.splice(index, 1);
     });
@@ -88,11 +95,9 @@ export class ViewQuizComponent implements OnInit {
   deleteAnswer(i: number, j: number, questionId: number, answerId: number) {
     this.quiz.questions[i].answers.splice(j, 1);
     
-/*     this.questionService.deleteQuestion(this.quizId, questionId).subscribe(() => {
-      this.quiz.questions.splice(index, 1);
-    }); */
+    this.answerService.deleteAnswer(questionId, answerId).subscribe(() => {
+      this.quiz.questions[i].answers.splice(j, 1);
+    });
   }
-
-
 
 }
