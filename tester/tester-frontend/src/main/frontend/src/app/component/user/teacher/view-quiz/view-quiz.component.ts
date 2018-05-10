@@ -93,8 +93,6 @@ export class ViewQuizComponent implements OnInit {
   }
 
   deleteAnswer(i: number, j: number, questionId: number, answerId: number) {
-    this.quiz.questions[i].answers.splice(j, 1);
-    
     this.answerService.deleteAnswer(questionId, answerId).subscribe(() => {
       this.quiz.questions[i].answers.splice(j, 1);
     });

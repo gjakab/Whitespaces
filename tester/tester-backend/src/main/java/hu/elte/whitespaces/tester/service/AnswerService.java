@@ -55,6 +55,7 @@ public class AnswerService {
 		if (result.isPresent()) {
 			Answer currentAnswer = result.get();
 			currentAnswer.setAnswer(answer.getAnswer());
+			currentAnswer.setRightAnswer(answer.isRightAnswer());
 			
 			return answerRepository.save(currentAnswer);
 		}
