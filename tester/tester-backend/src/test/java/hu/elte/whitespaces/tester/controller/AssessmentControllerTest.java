@@ -3,8 +3,6 @@ package hu.elte.whitespaces.tester.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.OK;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -21,7 +19,6 @@ public class AssessmentControllerTest extends AbstractControllerTest {
     private final static String NAME2 = "ASSESSMENT NAME2";
     private final static Double STAT1 = 99.9;
     private final static Double STAT2 = 89.9;
-    private final static Timestamp CREATION_DATE = new Timestamp(new Date().getTime());
     
     private final static String FIRSTNAME = "FIRSTNAME1";
     private final static String LASTNAME = "LASTNAME1";
@@ -83,16 +80,17 @@ public class AssessmentControllerTest extends AbstractControllerTest {
     
     @Test
     public void createTest() {
+        createAndLoginUserWithEmail(EMAIL1);
     	Assessment created = assessmentController.create(buildAssessmentWithName(NAME1))
     			 								 .getBody();
     	
     	assertThat(created.getName()).isEqualTo(NAME1);
-    	assertThat(created.getCreationDate()).isEqualTo(CREATION_DATE);
-    	assertThat(created.getStat()).isEqualTo(STAT1); 	    	
+    	assertThat(created.getStat()).isEqualTo(0.0); 	    	
     }
     
     @Test
     public void deleteTest() {
+        createAndLoginUserWithEmail(EMAIL1);
     	Assessment assessment = assessmentController.create(buildAssessmentWithName(NAME1))
     			 									.getBody();
     	ResponseEntity<Assessment> deleteResponse = assessmentController.delete(assessment.getId());
@@ -101,6 +99,7 @@ public class AssessmentControllerTest extends AbstractControllerTest {
     
     @Test
     public void updateTest() {
+        createAndLoginUserWithEmail(EMAIL1);
     	Assessment assessment = assessmentController.create(buildAssessmentWithName(NAME1))
 													.getBody();
     	
@@ -125,16 +124,24 @@ public class AssessmentControllerTest extends AbstractControllerTest {
     	user.setEmail(email);
     	user.setPassword(PASSWORD);
     	user.setRole(ROLE);
-    	
-    	userController.create(user).getBody().getId();
-    	userController.login(user);
+
+        userController.create(user);
+
+    	User loginUser = new User();
+
+    	loginUser.setFirstname(FIRSTNAME);
+    	loginUser.setLastname(LASTNAME);
+    	loginUser.setSchool(SCHOOL);
+    	loginUser.setEmail(email);
+    	loginUser.setPassword(PASSWORD);
+    	loginUser.setRole(ROLE);
+
+    	userController.login(loginUser);
     }
     
     private Assessment buildAssessmentWithName(String name) {
     	Assessment assessment = new Assessment();
     	assessment.setName(name);
-    	assessment.setCreationDate(CREATION_DATE);
-    	assessment.setStat(STAT1);
     	
     	return assessment;
     }

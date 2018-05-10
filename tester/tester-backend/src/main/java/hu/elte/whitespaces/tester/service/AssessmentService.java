@@ -1,5 +1,6 @@
 package hu.elte.whitespaces.tester.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,16 +14,19 @@ import org.springframework.web.context.annotation.SessionScope;
 import hu.elte.whitespaces.tester.model.Assessment;
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.repository.AssessmentRepository;
+import hu.elte.whitespaces.tester.repository.UserRepository;
 
 @Service
 @SessionScope
 public class AssessmentService {
 	
 	private AssessmentRepository assessmentRepository;
+	private UserRepository userRepository;
 	
 	@Autowired
-	public AssessmentService(AssessmentRepository assessmentRepository) {
+	public AssessmentService(AssessmentRepository assessmentRepository, UserRepository userRepository) {
 		this.assessmentRepository = assessmentRepository;
+		this.userRepository = userRepository;
 	}
 	
 	public Assessment getAssessmentById(Integer Id) {
@@ -53,7 +57,10 @@ public class AssessmentService {
 	
 	@Transactional
 	public Assessment create(Assessment assessment, User user) {
-		assessment.setUser(user);
+	    User dbUser = userRepository.findByEmail(user.getEmail()).get();
+		assessment.setUser(dbUser);
+		assessment.setCreationDate(new Timestamp(System.currentTimeMillis()));
+		assessment.setStat(0.0);
 		return assessmentRepository.save(assessment);
 	}
 	

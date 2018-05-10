@@ -1,13 +1,15 @@
 package hu.elte.whitespaces.tester.service;
 
-import static org.mockito.Mockito.*;
 import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.repository.UserRepository;
@@ -18,12 +20,13 @@ public class UserServiceTest {
     private final static String EMAIL = "UserName";
 
     private final UserRepository repository = mock(UserRepository.class);
+    private PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
 
     private UserService service;
 
     @Before
     public void setUp() {
-        service = new UserService(repository);
+        service = new UserService(repository, passwordEncoder);
     }
 
     @Test
@@ -51,6 +54,7 @@ public class UserServiceTest {
     @Test
     public void saveTest() {
         User user = new User();
+        user.setPassword("password");
         service.register(user);
 
         verify(repository).save(user);
