@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import hu.elte.whitespaces.tester.model.AssessmentResult;
+import hu.elte.whitespaces.tester.model.dto.QuizResultDTO;
 import hu.elte.whitespaces.tester.service.QuizResultService;
 import hu.elte.whitespaces.tester.service.UserService;
 
@@ -26,7 +28,7 @@ import hu.elte.whitespaces.tester.service.UserService;
 public class QuizResultController {
 
 	private final static String QUIZ_ID ="/{quizId}";
-	//private final static String QUIZ_RESULT_LIST ="/all";
+	private final static String QUIZRESULT_ID ="/{quizId}/{quizResultId}";
 	
 	private final QuizResultService quizResultService;
 	private final UserService userService;
@@ -38,12 +40,12 @@ public class QuizResultController {
 	}
 	
 	@GetMapping("")
-	public ResponseEntity<List<AssessmentResult>> getAllQuizResultsByUserId() {
+	public ResponseEntity<List<QuizResultDTO>> getAllQuizResultsByUserId() {
 		return ResponseEntity.ok(quizResultService.getAllQuizResultsByUserId(userService.getCurrentUser().getId()));
 	}
 	
 	@GetMapping(QUIZ_ID)
-	public ResponseEntity<List<AssessmentResult>> getAllQuizResultsByQuizId(@PathVariable Integer quizId) {
+	public ResponseEntity<List<QuizResultDTO>> getAllQuizResultsByQuizId(@PathVariable Integer quizId) {
 		return ResponseEntity.ok(quizResultService.getAllQuizResultsByQuiz(quizId));
 	}
 	
@@ -52,6 +54,14 @@ public class QuizResultController {
 		AssessmentResult saved = quizResultService.create(quizId, userService.getCurrentUser(), quizResult);
 		if (saved != null) {
 			return ResponseEntity.ok(saved);
+		}
+		return ResponseEntity.status(NOT_FOUND).build();
+	}
+	
+	@DeleteMapping(QUIZRESULT_ID)
+	public ResponseEntity<AssessmentResult> delete(@PathVariable Integer quizResultId) {
+		if (quizResultService.delete(quizResultId)) {
+			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.status(NOT_FOUND).build();
 	}

@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Quiz } from '../../../../model/quiz.model';
 import { QuizService } from '../../../../service/quiz.service';
-import { subscribeOn } from 'rxjs/operator/subscribeOn';
 
 import * as moment from 'moment';
 

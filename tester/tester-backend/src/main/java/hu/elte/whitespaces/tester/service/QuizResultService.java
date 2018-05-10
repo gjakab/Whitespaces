@@ -2,6 +2,7 @@ package hu.elte.whitespaces.tester.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import hu.elte.whitespaces.tester.model.Assessment;
 import hu.elte.whitespaces.tester.model.AssessmentResult;
 import hu.elte.whitespaces.tester.model.User;
+import hu.elte.whitespaces.tester.model.dto.QuizResultDTO;
 import hu.elte.whitespaces.tester.repository.AssessmentRepository;
 import hu.elte.whitespaces.tester.repository.QuizResultRepository;
 import hu.elte.whitespaces.tester.repository.UserRepository;
@@ -30,19 +32,29 @@ public class QuizResultService {
 		this.assessmentRepository = assessmentRepository;
 	}
 	
-	public List<AssessmentResult> getAllQuizResultsByQuiz(Integer qId) {
+	public List<QuizResultDTO> getAllQuizResultsByQuiz(Integer qId) {
 		Iterable<AssessmentResult> quizResults = quizResultRepository.findAllByAssessmentId(qId);
-		List<AssessmentResult> results = new ArrayList<>();
+		List<QuizResultDTO> results = new ArrayList<>();
+
+		for (AssessmentResult quizResult: quizResults) {
+			results.add(new QuizResultDTO(quizResult.getId(), quizResult.getScore(), quizResult.getStats(),
+																		quizResult.getUser().getFirstname() + " " + quizResult.getUser().getLastname(),
+																		quizResult.getAssessment().getId()));
+		}
 		
-		quizResults.forEach(quizResult -> results.add(quizResult));
 		return results;
 	}
 	
-	public List<AssessmentResult> getAllQuizResultsByUserId(Integer userId) {
+	public List<QuizResultDTO> getAllQuizResultsByUserId(Integer userId) {
 		Iterable<AssessmentResult> quizResults = quizResultRepository.findAllByUserId(userId);
-		List<AssessmentResult> results = new ArrayList<>();
+		List<QuizResultDTO> results = new ArrayList<>();
 		
-		quizResults.forEach(quizResult -> results.add(quizResult));
+		for (AssessmentResult quizResult: quizResults) {
+			results.add(new QuizResultDTO(quizResult.getId(), quizResult.getScore(), quizResult.getStats(),
+																		quizResult.getUser().getFirstname() + " " + quizResult.getUser().getLastname(),
+																		quizResult.getAssessment().getId()));
+		}
+		
 		return results;
 	}
 	
@@ -55,6 +67,18 @@ public class QuizResultService {
 		quizResult.setAssessment(quiz);
 		
 		return quizResultRepository.save(quizResult);
+	}
+	
+	@Transactional
+	public boolean delete(int Id) {
+		Optional<AssessmentResult> result = quizResultRepository.findById(Id);
+		
+		if (result.isPresent()) {
+			quizResultRepository.delete(result.get());
+			return true;
+		}
+		
+		return false;
 	}
 	
 }
