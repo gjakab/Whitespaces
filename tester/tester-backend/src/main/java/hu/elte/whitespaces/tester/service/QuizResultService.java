@@ -70,7 +70,7 @@ public class QuizResultService {
 	}
 	
 	@Transactional
-	public boolean delete(int Id) {
+	public boolean delete(Integer Id) {
 		Optional<AssessmentResult> result = quizResultRepository.findById(Id);
 		
 		if (result.isPresent()) {
