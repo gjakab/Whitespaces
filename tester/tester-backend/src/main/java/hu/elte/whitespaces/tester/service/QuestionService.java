@@ -56,7 +56,7 @@ public class QuestionService {
 			Question currentQuestion = result.get();
 			currentQuestion.setQuestion(question.getQuestion());
 			currentQuestion.setCategory(question.getCategory());
-			currentQuestion.setAnswers(question.getAnswers());
+			//currentQuestion.setAnswers(question.getAnswers());
 			
 			return questionRepository.save(currentQuestion);
 		}

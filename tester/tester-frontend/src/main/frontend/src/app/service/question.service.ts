@@ -12,12 +12,12 @@ export class QuestionService{
 
   updateQuestion(quizId: number, question: Question) {
     console.log("FRISSÍTETT KÉRDÉS", question)
-    /*return this.http.patch('/api/users/quizzes/' + quizId + '/question/' + questionId, question)
+    return this.http.patch('/api/users/quizzes/' + quizId + '/question/' + question.id, question)
       .catch(
         (error: Response) => {
           return Observable.throw(error);
         }
-      ) */
+      )
   }
 
   deleteQuestion(quizId: number, questionId: Number) {

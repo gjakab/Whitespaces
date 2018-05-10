@@ -23,7 +23,7 @@ import hu.elte.whitespaces.tester.service.QuestionService;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
-@RequestMapping("api/users/assessments/{aId}")
+@RequestMapping("api/users/quizzes/{qId}")
 public class QuestionController {
 	private final static String QUESTION_ID = "/question/{qId}";
 	private final static String QUESTION_LIST = "/questionlist";
@@ -47,13 +47,13 @@ public class QuestionController {
 	}
 	
 	@GetMapping(QUESTION_LIST)
-	public ResponseEntity<List<Question>> getAllQuestionsByAssessment(@PathVariable Integer aId) {
-		return ResponseEntity.ok(questionService.getAllQuestionsByAssessmentId(aId));
+	public ResponseEntity<List<Question>> getAllQuestionsByAssessment(@PathVariable Integer qId) {
+		return ResponseEntity.ok(questionService.getAllQuestionsByAssessmentId(qId));
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<Question> create(@Valid @RequestBody Question question, @PathVariable Integer aId) {
-		Question saved = questionService.create(question, aId);
+	public ResponseEntity<Question> create(@Valid @RequestBody Question question, @PathVariable Integer qId) {
+		Question saved = questionService.create(question, qId);
 		
 		if (saved != null) {
 			return ResponseEntity.ok(saved);

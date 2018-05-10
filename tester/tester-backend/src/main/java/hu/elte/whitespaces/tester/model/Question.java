@@ -1,6 +1,5 @@
 package hu.elte.whitespaces.tester.model;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -45,7 +44,7 @@ public class Question extends BaseEntity {
     
     @Override
     public String toString() {
-    	return "question: " + this.question + ", answers: " + Arrays.toString(this.getAnswers().toArray());
+    	return "question: " + this.question + ", category: " + this.category;
     }
 	
 }

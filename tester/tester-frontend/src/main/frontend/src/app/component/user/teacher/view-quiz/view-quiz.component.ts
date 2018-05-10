@@ -40,8 +40,8 @@ export class ViewQuizComponent implements OnInit {
     this.quizService.getQuizById(this.quizId)
     .subscribe(
       (quiz: Quiz) => {
-        console.log("QUIZ", quiz);
         this.quiz = quiz;
+        console.log("THIS QUIZ", this.quiz)
       },
       (error) => console.log(error)
     );
@@ -64,6 +64,7 @@ export class ViewQuizComponent implements OnInit {
   updateData(question: Question, answer: Answer, newData: string[], i: number, j: number) {
     if (answer === null) {
       this.quiz.questions[i].question = newData[0];
+      this.quiz.questions[i].category = newData[1];
       this.updateQuestion(question.id, newData[0], newData[1]);
     } else {
       this.quiz.questions[i].answers[j].answer = newData[0];
@@ -72,15 +73,16 @@ export class ViewQuizComponent implements OnInit {
   }
 
   updateQuestion(id: number, question: string, category: string) {
-    this.questionService.updateQuestion(this.quizId, new Question(question, null, null, id))
+    this.questionService.updateQuestion(this.quizId, new Question(question, category, null, id)).subscribe(updated => {
+    });
   }
 
   deleteQuestion(index: number, questionId: number) {
-    this.quiz.questions.splice(index, 1);
+    //this.quiz.questions.splice(index, 1);
     
-/*     this.questionService.deleteQuestion(this.quizId, questionId).subscribe(() => {
+    this.questionService.deleteQuestion(this.quizId, questionId).subscribe(() => {
       this.quiz.questions.splice(index, 1);
-    }); */
+    });
   }
 
   deleteAnswer(i: number, j: number, questionId: number, answerId: number) {
