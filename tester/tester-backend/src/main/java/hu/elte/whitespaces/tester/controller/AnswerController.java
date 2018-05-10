@@ -37,7 +37,7 @@ public class AnswerController {
 	
 	@GetMapping(ANSWER_ID)
 	public ResponseEntity<Answer> getAnswerById(@PathVariable Integer qId, @PathVariable Integer anId) {
-		Answer response = answerService.getAnswerByQuestionId(qId);
+		Answer response = answerService.getAnswerByQuestionId(anId);
 		
 		if (response != null) {
 			return ResponseEntity.ok(response);
