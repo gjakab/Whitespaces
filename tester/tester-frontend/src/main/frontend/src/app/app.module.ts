@@ -20,6 +20,7 @@ import { NewQuizComponent } from './component/user/teacher/new-quiz/new-quiz.com
 import { ViewQuizComponent } from './component/user/teacher/view-quiz/view-quiz.component';
 import { EditDataModalComponent } from './component/user/edit-data-modal/edit-data-modal.component';
 import { AnswerService } from './service/answer.service';
+import { ViewResultsComponent } from './component/user/teacher/view-results/view-results.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AnswerService } from './service/answer.service';
     NewQuizComponent,
     ViewQuizComponent,
     EditDataModalComponent,
+    ViewResultsComponent,
   ],
   imports: [
     NgbModule.forRoot(),
