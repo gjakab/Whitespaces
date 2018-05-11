@@ -8,6 +8,7 @@ import hu.elte.whitespaces.tester.model.AssessmentResult;
 @Repository
 public interface QuizResultRepository extends CrudRepository<AssessmentResult, Integer> {
 
-	Iterable<AssessmentResult> findAllByAssessmentId(Integer qId);
-	Iterable<AssessmentResult> findAllByUserId(Integer userId);
+    Iterable<AssessmentResult> findAllByAssessmentId(Integer qId);
+
+    Iterable<AssessmentResult> findAllByUserId(Integer userId);
 }

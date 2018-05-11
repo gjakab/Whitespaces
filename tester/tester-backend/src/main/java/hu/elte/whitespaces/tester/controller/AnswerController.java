@@ -21,60 +21,60 @@ import org.springframework.web.bind.annotation.RestController;
 import hu.elte.whitespaces.tester.model.Answer;
 import hu.elte.whitespaces.tester.service.AnswerService;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/users/assessments/questions/{qId}")
 public class AnswerController {
-	private final static String ANSWER_ID = "/{anId}";
-	private final static String ANSWER_LIST = "/answers";
-	
-	private final AnswerService answerService;
-	
-	@Autowired
-	public AnswerController(AnswerService answerService) {
-		this.answerService = answerService;
-	}
-	
-	@GetMapping(ANSWER_ID)
-	public ResponseEntity<Answer> getAnswerById(@PathVariable Integer qId, @PathVariable Integer anId) {
-		Answer response = answerService.getAnswerByQuestionId(anId);
-		
-		if (response != null) {
-			return ResponseEntity.ok(response);
-		}
-		return ResponseEntity.status(NOT_FOUND).build();
-	}
-	
-	@GetMapping(ANSWER_LIST)
-	public ResponseEntity<List<Answer>> getAllAnswersByQuestionId(@PathVariable Integer qId) {
-		return ResponseEntity.ok(answerService.getAllAnswersByQuestion(qId));
-	}
-	
-	@PostMapping("")
-	public ResponseEntity<Answer> create(@Valid @RequestBody Answer answer, Integer qId) {
-		Answer saved = answerService.create(answer, qId);
-		
-		if (saved != null) {
-			return ResponseEntity.ok(saved);
-		}
-		return ResponseEntity.status(NOT_FOUND).build();
-	}
-	
-	@DeleteMapping(ANSWER_ID)
-	public ResponseEntity<Answer> delete(@PathVariable Integer anId) {
-		if (answerService.delete(anId)) {
-			return ResponseEntity.ok().build();
-		}
-		return ResponseEntity.status(NOT_FOUND).build();
-	}
-	
-	@PatchMapping(ANSWER_ID)
-	public ResponseEntity<Answer> update(@PathVariable Integer anId, @Valid @RequestBody Answer answer) {
-		Answer updated = answerService.update(anId, answer);
-		
-		if (updated != null) {
-			return ResponseEntity.ok(updated);
-		}
-		return ResponseEntity.status(NOT_FOUND).build();
-	}
+    private static final String ANSWER_ID = "/{anId}";
+    private static final String ANSWER_LIST = "/answers";
+
+    private AnswerService answerService;
+
+    @Autowired
+    public AnswerController(AnswerService answerService) {
+        this.answerService = answerService;
+    }
+
+    @GetMapping(ANSWER_ID)
+    public ResponseEntity<Answer> getAnswerById(@PathVariable Integer qId, @PathVariable Integer anId) {
+        Answer response = answerService.getAnswerByQuestionId(anId);
+
+        if (response != null) {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.status(NOT_FOUND).build();
+    }
+
+    @GetMapping(ANSWER_LIST)
+    public ResponseEntity<List<Answer>> getAllAnswersByQuestionId(@PathVariable Integer qId) {
+        return ResponseEntity.ok(answerService.getAllAnswersByQuestion(qId));
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Answer> create(@Valid @RequestBody Answer answer, Integer qId) {
+        Answer saved = answerService.create(answer, qId);
+
+        if (saved != null) {
+            return ResponseEntity.ok(saved);
+        }
+        return ResponseEntity.status(NOT_FOUND).build();
+    }
+
+    @DeleteMapping(ANSWER_ID)
+    public ResponseEntity<Answer> delete(@PathVariable Integer anId) {
+        if (answerService.delete(anId)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(NOT_FOUND).build();
+    }
+
+    @PatchMapping(ANSWER_ID)
+    public ResponseEntity<Answer> update(@PathVariable Integer anId, @Valid @RequestBody Answer answer) {
+        Answer updated = answerService.update(anId, answer);
+
+        if (updated != null) {
+            return ResponseEntity.ok(updated);
+        }
+        return ResponseEntity.status(NOT_FOUND).build();
+    }
 }

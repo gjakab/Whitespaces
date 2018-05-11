@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuizResultDTO {
-	
-	private int id;
-	private int score;
-	private double stats;
-	private String userName;
-	private int quizId; 
+
+    private int id;
+    private int score;
+    private double stats;
+    private String userName;
+    private int quizId;
 
 }

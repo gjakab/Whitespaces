@@ -18,24 +18,24 @@ import hu.elte.whitespaces.tester.repository.UserRepository;
 @SessionScope
 public class UserService {
 
-    private final UserRepository repository;
+    private UserRepository repository;
 
     private PasswordEncoder passwordEncoder;
 
     private User user;
 
     @Autowired
-    UserService(UserRepository repository, PasswordEncoder passwordEncoder){
+    UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
     }
 
     public User login(User user) {
         Optional<User> result = repository.findByEmail(user.getEmail());
-        
+
         System.out.println("PASSWORD: " + passwordEncoder.encode("1234"));
-        
-        if(result.isPresent() && passwordEncoder.matches(user.getPassword(), result.get().getPassword())) {
+
+        if (result.isPresent() && passwordEncoder.matches(user.getPassword(), result.get().getPassword())) {
             this.user = result.get();
             return this.user;
         } else {
@@ -53,8 +53,8 @@ public class UserService {
 
     public User getUserById(Integer id) {
         Optional<User> result = repository.findById(id);
-        
-        if(result.isPresent()) {
+
+        if (result.isPresent()) {
             return result.get();
         } else {
             return null;
@@ -63,8 +63,8 @@ public class UserService {
 
     public User getUserByEmail(String email) {
         Optional<User> result = repository.findByEmail(email);
-        
-        if(result.isPresent()) {
+
+        if (result.isPresent()) {
             return result.get();
         } else {
             return null;
@@ -80,8 +80,8 @@ public class UserService {
     @Transactional
     public boolean delete(int id) {
         Optional<User> entity = repository.findById(id);
-        
-        if(entity.isPresent()) {
+
+        if (entity.isPresent()) {
             repository.delete(entity.get());
             return true;
         } else {
@@ -96,9 +96,9 @@ public class UserService {
         users.forEach(user -> results.add(user));
         return results;
     }
-    
+
     public User getCurrentUser() {
-    	return this.user;
+        return this.user;
     }
 
 }

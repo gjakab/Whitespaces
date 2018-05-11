@@ -23,28 +23,27 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 public class Question extends BaseEntity {
-	
-	// TODO Enum vagy String?
-	@Column(nullable = false)
-	private String category;
-		
-	@Column(nullable = false)
-	private String question;
-	
+
+    // TODO Enum vagy String?
+    @Column(nullable = false)
+    private String category;
+
+    @Column(nullable = false)
+    private String question;
+
     @JsonIgnore
     @ManyToOne(targetEntity = Assessment.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSESSMENT_ID")
     private Assessment assessment;
-	
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "QUESTION_ID")
     private List<Answer> answers;
-    
+
     @Override
-    public String toString() {
-    	return "question: " + this.question + ", category: " + this.category;
+    public final String toString() {
+        return "question: " + this.question + ", category: " + this.category;
     }
-	
 }

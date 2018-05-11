@@ -19,7 +19,7 @@ export class EditDataModalComponent implements OnInit{
   @Input() trueAnswer: boolean;
   @Output() output: EventEmitter<string[]> = new EventEmitter();
   
-  constructor(private activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit() {
     this.createFormControls();

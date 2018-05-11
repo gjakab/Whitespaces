@@ -9,6 +9,8 @@ import hu.elte.whitespaces.tester.model.Answer;
 
 @Repository
 public interface AnswerRepository extends CrudRepository<Answer, Integer> {
-	Optional<Answer> findById(Integer anId);
-	Iterable<Answer> findAllByQuestionId(Integer qId);
+    @Override
+    Optional<Answer> findById(Integer anId);
+
+    Iterable<Answer> findAllByQuestionId(Integer qId);
 }
