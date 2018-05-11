@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import { Quiz } from "../model/quiz.model";
-import { newQuizDTO } from "../model/newQuizDTO.model";
+import { NewQuizDTO } from "../model/newQuizDTO.model";
 
 @Injectable()
 export class QuizService{
@@ -25,7 +25,7 @@ export class QuizService{
   }
 
   getAvailableQuizzesForUser() {
-    return this.http.get('/api/users/quizzes/all')
+    return this.http.get('/api/users/quizzes/student')
       .map((response: Response) => {
         const quizzes: Quiz[] = response.json();
         return quizzes;
@@ -47,7 +47,7 @@ export class QuizService{
       )
   }
 
-  createQuiz(newQuiz: newQuizDTO) {
+  createQuiz(newQuiz: NewQuizDTO) {
     console.log("UJ QUIZ", newQuiz)
     return this.http.post('/api/users/quizzes/', newQuiz)
       .catch(

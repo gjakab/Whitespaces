@@ -23,6 +23,19 @@ export class QuizResultService{
       )
   }
 
+  getQuizResultsOfCurrentUser() {
+    return this.http.get('/api/users/quizresults')
+      .map((response: Response) => {
+        const quizzes: QuizResultDTO[] = response.json();
+        return quizzes;
+      })
+      .catch(
+        (error: Response) => {
+          return Observable.throw(error);
+        }
+      )
+  } 
+
   deleteQuizResult(quizId: number, quizResultId) {
     return this.http.delete('/api/users/quizresults/' + quizId + "/" + quizResultId)
       .catch(

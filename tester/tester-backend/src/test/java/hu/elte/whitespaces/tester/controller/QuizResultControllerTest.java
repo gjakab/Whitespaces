@@ -13,14 +13,12 @@ import hu.elte.whitespaces.tester.model.Assessment;
 import hu.elte.whitespaces.tester.model.AssessmentResult;
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.model.dto.QuizResultDTO;
+import hu.elte.whitespaces.tester.model.dto.StudentQuizResultDTO;
 
 /*Delete the imports from import.sql before the test*/
 public class QuizResultControllerTest extends AbstractControllerTest {
 	
     private final static String QUIZ_NAME = "QUIZ NAME";
-	private final static int QUIZRESULT_ID = 100;
-	private final static int USER_ID = 100;
-	private final static int QUIZ_ID = 100;    
 	private final static int SCORE = 100;
     private final static double STAT = 100.0;
     
@@ -50,12 +48,12 @@ public class QuizResultControllerTest extends AbstractControllerTest {
     	AssessmentResult quizResult2 = quizResultController.create(buildQuizResult(), quiz.getId())
 				 										.getBody();
     	
-    	List<QuizResultDTO> quizResults = quizResultController.getAllQuizResultsByUserId()
+    	List<StudentQuizResultDTO> quizResults = quizResultController.getAllQuizResultsByUserId()
     													   	  .getBody();
     	
         assertThat(quizResults).hasSize(2);
-        assertThat(quizResults.get(0)).isEqualToComparingFieldByField(buildQuizResultDTO(quizResult1));
-        assertThat(quizResults.get(1)).isEqualToComparingFieldByField(buildQuizResultDTO(quizResult2));   	
+        assertThat(quizResults.get(0)).isEqualToComparingFieldByField(buildStudentQuizResultDTO(quizResult1));
+        assertThat(quizResults.get(1)).isEqualToComparingFieldByField(buildStudentQuizResultDTO(quizResult2));   	
     }
     
     @Test
@@ -133,6 +131,10 @@ public class QuizResultControllerTest extends AbstractControllerTest {
     private QuizResultDTO buildQuizResultDTO(AssessmentResult quizResult) {
     	String fullName = quizResult.getUser().getFirstname() + " " + quizResult.getUser().getLastname();
     	return new QuizResultDTO(quizResult.getId(), quizResult.getScore(), quizResult.getStats(), fullName, quizResult.getAssessment().getId());
+    }
+    
+    private StudentQuizResultDTO buildStudentQuizResultDTO(AssessmentResult quizResult) {
+        return new StudentQuizResultDTO(quizResult.getScore(), quizResult.getStats(), quizResult.getAssessment().getName());
     }
     
     private Assessment buildAssessment() {
