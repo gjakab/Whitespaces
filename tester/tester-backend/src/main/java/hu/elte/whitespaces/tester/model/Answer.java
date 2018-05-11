@@ -34,7 +34,7 @@ public class Answer extends BaseEntity {
     private Question question;
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "answer: " + this.answer + ", right: " + this.rightAnswer;
     }
 }

@@ -49,9 +49,9 @@ public class Assessment extends BaseEntity {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "assessment")
     private List<AssessmentResult> assessmentResults;
-    
+
     @Override
-    public String toString() {
-    	return "name: " + this.name + ", questions: " + Arrays.toString(this.getQuestions().toArray());
+    public final String toString() {
+        return "name: " + this.name + ", questions: " + Arrays.toString(this.getQuestions().toArray());
     }
 }

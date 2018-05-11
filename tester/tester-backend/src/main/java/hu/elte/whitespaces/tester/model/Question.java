@@ -43,7 +43,7 @@ public class Question extends BaseEntity {
     private List<Answer> answers;
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "question: " + this.question + ", category: " + this.category;
     }
 }
