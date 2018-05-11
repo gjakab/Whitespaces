@@ -22,70 +22,71 @@ import hu.elte.whitespaces.tester.model.Assessment;
 import hu.elte.whitespaces.tester.service.AssessmentService;
 import hu.elte.whitespaces.tester.service.UserService;
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //This is need for development
+@CrossOrigin(origins = { "http://localhost:4200" }) // This is need for development
 @RestController
 @RequestMapping("/api/users/quizzes")
 public class AssessmentController {
-	
-	private final static String QUIZ_ID ="/{quizId}";
-	private final static String QUIZ_LIST ="/all";
-	
-	private final AssessmentService assessmentService;
-	private final UserService userService;
-	
-	@Autowired
-	public AssessmentController(AssessmentService assessmentService, UserService userService) {
-		this.assessmentService = assessmentService;
-		this.userService = userService;
-	}
-	
-	@GetMapping("")
-	public ResponseEntity<List<Assessment>> getAllAssessmentsByUserId() {
-		return ResponseEntity.ok(assessmentService.getAllAssessmentsByUserId(userService.getCurrentUser().getId()));
-	}
-	
-	@GetMapping(QUIZ_ID)
-	public ResponseEntity<Assessment> getAssessmentById(@PathVariable Integer quizId) {
-		Assessment response = assessmentService.getAssessmentById(quizId);
-		
-		if (response != null) {
-			return ResponseEntity.ok(response);
-		}
-		return ResponseEntity.status(NOT_FOUND).build();
-	}
-	
-	@GetMapping(QUIZ_LIST)
-	public ResponseEntity<List<Assessment>> getAllAssessments() {
-		return ResponseEntity.ok(assessmentService.getAllAssessments());
-	}
-	
-	//@Role({TEACHER, ADMIN})
-	@PostMapping("")
-	public ResponseEntity<Assessment> create(@Valid @RequestBody Assessment assessment) {
-		System.out.println("ASSESMENT: " + assessment);
-		Assessment saved = assessmentService.create(assessment, userService.getCurrentUser());
-		if (saved != null) {
-			return ResponseEntity.ok(saved);
-		}
-		return ResponseEntity.status(NOT_FOUND).build();
-	}
-	
-	@DeleteMapping(QUIZ_ID)
-	public ResponseEntity<Assessment> delete(@PathVariable Integer quizId) {
-		if (assessmentService.delete(quizId)) {
-			return ResponseEntity.ok().build();
-		}
-		return ResponseEntity.status(NOT_FOUND).build();
-	}
-	
-	@PatchMapping(QUIZ_ID)
-	public ResponseEntity<Assessment> update(@PathVariable Integer quizId, @Valid @RequestBody Assessment assessment) {
-		Assessment updated = assessmentService.update(quizId, assessment);
-		
-		if (updated != null) {
-			return ResponseEntity.ok(updated);
-		}
-		return ResponseEntity.status(NOT_FOUND).build();
-	}
+
+    private static final String QUIZ_ID = "/{quizId}";
+    private static final String QUIZ_LIST = "/all";
+
+    private final AssessmentService assessmentService;
+    private final UserService userService;
+
+    @Autowired
+    public final AssessmentController(final AssessmentService assessmentService, final UserService userService) {
+        this.assessmentService = assessmentService;
+        this.userService = userService;
+    }
+
+    @GetMapping("")
+    public final ResponseEntity<List<Assessment>> getAllAssessmentsByUserId() {
+        return ResponseEntity.ok(assessmentService.getAllAssessmentsByUserId(userService.getCurrentUser().getId()));
+    }
+
+    @GetMapping(QUIZ_ID)
+    public final ResponseEntity<Assessment> getAssessmentById(@PathVariable final Integer quizId) {
+        Assessment response = assessmentService.getAssessmentById(quizId);
+
+        if (response != null) {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.status(NOT_FOUND).build();
+    }
+
+    @GetMapping(QUIZ_LIST)
+    public final ResponseEntity<List<Assessment>> getAllAssessments() {
+        return ResponseEntity.ok(assessmentService.getAllAssessments());
+    }
+
+    // @Role({TEACHER, ADMIN})
+    @PostMapping("")
+    public final ResponseEntity<Assessment> create(@Valid @RequestBody final Assessment assessment) {
+        System.out.println("ASSESMENT: " + assessment);
+        Assessment saved = assessmentService.create(assessment, userService.getCurrentUser());
+        if (saved != null) {
+            return ResponseEntity.ok(saved);
+        }
+        return ResponseEntity.status(NOT_FOUND).build();
+    }
+
+    @DeleteMapping(QUIZ_ID)
+    public final ResponseEntity<Assessment> delete(@PathVariable final Integer quizId) {
+        if (assessmentService.delete(quizId)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(NOT_FOUND).build();
+    }
+
+    @PatchMapping(QUIZ_ID)
+    public final ResponseEntity<Assessment> update(@PathVariable final Integer quizId,
+            @Valid @RequestBody final Assessment assessment) {
+        Assessment updated = assessmentService.update(quizId, assessment);
+
+        if (updated != null) {
+            return ResponseEntity.ok(updated);
+        }
+        return ResponseEntity.status(NOT_FOUND).build();
+    }
 
 }
