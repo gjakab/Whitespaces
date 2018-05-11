@@ -47,7 +47,6 @@ public class AssessmentController {
 	@GetMapping(QUIZ_ID)
 	public ResponseEntity<Assessment> getAssessmentById(@PathVariable Integer quizId) {
 		Assessment response = assessmentService.getAssessmentById(quizId);
-		
 		if (response != null) {
 			return ResponseEntity.ok(response);
 		}
@@ -62,7 +61,6 @@ public class AssessmentController {
 	//@Role({TEACHER, ADMIN})
 	@PostMapping("")
 	public ResponseEntity<Assessment> create(@Valid @RequestBody Assessment assessment) {
-		System.out.println("ASSESMENT: " + assessment);
 		Assessment saved = assessmentService.create(assessment, userService.getCurrentUser());
 		if (saved != null) {
 			return ResponseEntity.ok(saved);

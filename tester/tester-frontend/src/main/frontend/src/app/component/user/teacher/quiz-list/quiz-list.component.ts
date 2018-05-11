@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Quiz } from '../../../../model/quiz.model';
 import { QuizService } from '../../../../service/quiz.service';
-import { subscribeOn } from 'rxjs/operator/subscribeOn';
 
 import * as moment from 'moment';
 
@@ -71,7 +70,7 @@ export class QuizListComponent implements OnInit {
         (quizzes: Quiz[]) => {
           this.quizzes = quizzes;
           this.temp = [...quizzes];
-          console.log(quizzes)
+          console.log("RESPONSE", quizzes)
           },
         (error) => console.log(error)
       )
