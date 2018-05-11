@@ -21,64 +21,66 @@ import org.springframework.web.bind.annotation.RestController;
 import hu.elte.whitespaces.tester.model.Question;
 import hu.elte.whitespaces.tester.service.QuestionService;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("api/users/quizzes/{qId}")
 public class QuestionController {
-	private final static String QUESTION_ID = "/question/{qId}";
-	private final static String QUESTION_LIST = "/questionlist";
-	
-	private final QuestionService questionService;
-	
-	@Autowired
-	public QuestionController(QuestionService questionService) {
-		this.questionService = questionService;
-	}
-	
-	@GetMapping(QUESTION_ID)
-	public ResponseEntity<Question> getQuestionById(@PathVariable Integer qId) {
-		Question response = questionService.getQuestionById(qId);
-		
-		if (response != null) {
-			return ResponseEntity.ok(response);
-		}
-		
-		return ResponseEntity.status(NOT_FOUND).build();
-	}
-	
-	@GetMapping(QUESTION_LIST)
-	public ResponseEntity<List<Question>> getAllQuestionsByAssessment(@PathVariable Integer qId) {
-		return ResponseEntity.ok(questionService.getAllQuestionsByAssessmentId(qId));
-	}
-	
-	@PostMapping("")
-	public ResponseEntity<Question> create(@Valid @RequestBody Question question, @PathVariable Integer qId) {
-		Question saved = questionService.create(question, qId);
-		
-		if (saved != null) {
-			return ResponseEntity.ok(saved);
-		}
-		
-		return ResponseEntity.status(NOT_FOUND).build();
-	}
-	
-	@DeleteMapping(QUESTION_ID)
-	public ResponseEntity<Question> delete(@PathVariable Integer qId) {
-		if (questionService.delete(qId)) {
-			return ResponseEntity.ok().build();
-		}
-		
-		return ResponseEntity.status(NOT_FOUND).build();
-	}
-	
-	@PatchMapping(QUESTION_ID)
-	public ResponseEntity<Question> update(@PathVariable Integer qId, @Valid @RequestBody Question question) {
-		Question updated = questionService.update(qId, question);
-		
-		if (updated != null) {
-			return ResponseEntity.ok(updated);
-		}
-		
-		return ResponseEntity.status(NOT_FOUND).build();
-	}
+    private static final String QUESTION_ID = "/question/{qId}";
+    private static final String QUESTION_LIST = "/questionlist";
+
+    private final QuestionService questionService;
+
+    @Autowired
+    public QuestionController(final QuestionService questionService) {
+        this.questionService = questionService;
+    }
+
+    @GetMapping(QUESTION_ID)
+    public final ResponseEntity<Question> getQuestionById(@PathVariable final Integer qId) {
+        Question response = questionService.getQuestionById(qId);
+
+        if (response != null) {
+            return ResponseEntity.ok(response);
+        }
+
+        return ResponseEntity.status(NOT_FOUND).build();
+    }
+
+    @GetMapping(QUESTION_LIST)
+    public final ResponseEntity<List<Question>> getAllQuestionsByAssessment(@PathVariable final Integer qId) {
+        return ResponseEntity.ok(questionService.getAllQuestionsByAssessmentId(qId));
+    }
+
+    @PostMapping("")
+    public final ResponseEntity<Question> create(@Valid @RequestBody final Question question,
+            @PathVariable final Integer qId) {
+        Question saved = questionService.create(question, qId);
+
+        if (saved != null) {
+            return ResponseEntity.ok(saved);
+        }
+
+        return ResponseEntity.status(NOT_FOUND).build();
+    }
+
+    @DeleteMapping(QUESTION_ID)
+    public final ResponseEntity<Question> delete(@PathVariable final Integer qId) {
+        if (questionService.delete(qId)) {
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.status(NOT_FOUND).build();
+    }
+
+    @PatchMapping(QUESTION_ID)
+    public final ResponseEntity<Question> update(@PathVariable final Integer qId,
+            @Valid @RequestBody final Question question) {
+        Question updated = questionService.update(qId, question);
+
+        if (updated != null) {
+            return ResponseEntity.ok(updated);
+        }
+
+        return ResponseEntity.status(NOT_FOUND).build();
+    }
 }
