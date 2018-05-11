@@ -8,7 +8,7 @@ import {
   FormBuilder
 } from '@angular/forms';
 
-import { newQuizDTO } from '../../../../model/newQuizDTO.model';
+import { NewQuizDTO } from '../../../../model/newQuizDTO.model';
 import { Question } from '../../../../model/question.model';
 import { Answer } from '../../../../model/answer.model';
 import { QuizService } from '../../../../service/quiz.service';
@@ -65,7 +65,7 @@ export class NewQuizComponent implements OnInit {
     if (this.myform.valid) {      
       try {
         let questions = this.parseQuestions();
-        this.createNewQuiz(new newQuizDTO(this.name.value, questions));
+        this.createNewQuiz(new NewQuizDTO(this.name.value, questions));
         console.log("Form Submitted!");
       } catch (e) {
         console.log("Form not valid2");
@@ -124,7 +124,7 @@ export class NewQuizComponent implements OnInit {
     return questions;
   }
 
-  createNewQuiz(newQuiz: newQuizDTO) {
+  createNewQuiz(newQuiz: NewQuizDTO) {
     this.quizService.createQuiz(newQuiz)
     .subscribe(
       (response) => {

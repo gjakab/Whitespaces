@@ -47,7 +47,7 @@ public class Assessment extends BaseEntity {
     private List<Question> questions;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "assessment")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "assessment", cascade = CascadeType.ALL)
     private List<AssessmentResult> assessmentResults;
 
     @Override

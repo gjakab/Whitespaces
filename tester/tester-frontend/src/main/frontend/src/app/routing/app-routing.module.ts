@@ -8,16 +8,18 @@ import { NewQuizComponent } from "../component/user/teacher/new-quiz/new-quiz.co
 import { ViewQuizComponent } from "../component/user/teacher/view-quiz/view-quiz.component";
 import { ViewResultsComponent } from "../component/user/teacher/view-results/view-results.component";
 import { FindQuizComponent } from "../component/user/student/find-quiz/find-quiz.component";
+import { QuizResultsComponent } from "../component/user/student/quiz-results/quiz-results.component";
 
 const appRoutes: Routes = [
     { path: 'users/register', component: SignUpComponent},
     { path: 'users/login', component: SignInComponent},
-    { path: 'users/quizlist', component: QuizListComponent},
-    { path: 'users/quizlist/:quizId', component: ViewQuizComponent},
-    { path: 'users/quizlist/:quizId/results', component: ViewResultsComponent},
-    { path: 'users/newquiz', component: NewQuizComponent},
-    { path: 'users/findquiz', component: FindQuizComponent},
-    { path: 'users/findquiz/:quizId', component: FindQuizComponent},
+    { path: 'users/teacher/quizlist', component: QuizListComponent},
+    { path: 'users/teacher/quizlist/:quizId', component: ViewQuizComponent},
+    { path: 'users/teacher/quizlist/:quizId/results', component: ViewResultsComponent},
+    { path: 'users/teacher/newquiz', component: NewQuizComponent},
+    { path: 'users/student/findquiz', component: FindQuizComponent},
+    { path: 'users/student/findquiz/:quizId', component: FindQuizComponent},
+    { path: 'users/student/results', component: QuizResultsComponent},
 ];
 
 @NgModule({

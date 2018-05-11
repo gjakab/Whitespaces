@@ -43,7 +43,7 @@ public class User extends BaseEntity {
     private String password;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Assessment> assessments;
 
     @JsonIgnore

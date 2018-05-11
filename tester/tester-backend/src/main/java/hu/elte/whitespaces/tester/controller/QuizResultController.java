@@ -19,12 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hu.elte.whitespaces.tester.model.AssessmentResult;
 import hu.elte.whitespaces.tester.model.dto.QuizResultDTO;
+import hu.elte.whitespaces.tester.model.dto.StudentQuizResultDTO;
 import hu.elte.whitespaces.tester.service.QuizResultService;
 import hu.elte.whitespaces.tester.service.UserService;
 
 @CrossOrigin(origins = { "http://localhost:4200" }) // This is needed for development
 @RestController
-@RequestMapping("/api/users/quizresults/")
+@RequestMapping("/api/users/quizresults")
 public class QuizResultController {
 
     private static final String QUIZ_ID = "/{quizId}";
@@ -40,7 +41,7 @@ public class QuizResultController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<QuizResultDTO>> getAllQuizResultsByUserId() {
+    public ResponseEntity<List<StudentQuizResultDTO>> getAllQuizResultsByUserId() {
         return ResponseEntity.ok(quizResultService.getAllQuizResultsByUserId(userService.getCurrentUser().getId()));
     }
 

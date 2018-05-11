@@ -13,6 +13,7 @@ import hu.elte.whitespaces.tester.model.Assessment;
 import hu.elte.whitespaces.tester.model.AssessmentResult;
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.model.dto.QuizResultDTO;
+import hu.elte.whitespaces.tester.model.dto.StudentQuizResultDTO;
 import hu.elte.whitespaces.tester.repository.AssessmentRepository;
 import hu.elte.whitespaces.tester.repository.QuizResultRepository;
 import hu.elte.whitespaces.tester.repository.UserRepository;
@@ -46,14 +47,13 @@ public class QuizResultService {
         return results;
     }
 
-    public List<QuizResultDTO> getAllQuizResultsByUserId(Integer userId) {
+    public List<StudentQuizResultDTO> getAllQuizResultsByUserId(Integer userId) {
         Iterable<AssessmentResult> quizResults = quizResultRepository.findAllByUserId(userId);
-        List<QuizResultDTO> results = new ArrayList<>();
+        List<StudentQuizResultDTO> results = new ArrayList<>();
 
         for (AssessmentResult quizResult : quizResults) {
-            results.add(new QuizResultDTO(quizResult.getId(), quizResult.getScore(), quizResult.getStats(),
-                    quizResult.getUser().getFirstname() + " " + quizResult.getUser().getLastname(),
-                    quizResult.getAssessment().getId()));
+            results.add(new StudentQuizResultDTO(quizResult.getScore(), quizResult.getStats(),
+                    quizResult.getAssessment().getName()));
         }
 
         return results;

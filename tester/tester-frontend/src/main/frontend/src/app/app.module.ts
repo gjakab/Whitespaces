@@ -23,6 +23,7 @@ import { AnswerService } from './service/answer.service';
 import { ViewResultsComponent } from './component/user/teacher/view-results/view-results.component';
 import { QuizResultService } from './service/quiz-result.service';
 import { FindQuizComponent } from './component/user/student/find-quiz/find-quiz.component';
+import { QuizResultsComponent } from './component/user/student/quiz-results/quiz-results.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { FindQuizComponent } from './component/user/student/find-quiz/find-quiz.
     EditDataModalComponent,
     ViewResultsComponent,
     FindQuizComponent,
+    QuizResultsComponent,
   ],
   imports: [
     NgbModule.forRoot(),
