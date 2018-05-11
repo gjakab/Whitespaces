@@ -24,32 +24,32 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 public class User extends BaseEntity {
-	
-	@Column(nullable = false)
-	private String firstname;
-	
-	@Column(nullable = false)
-	private String lastname;
-	
-	@Column(nullable = false)
-	private String school;
-		
-	@Column(nullable = false, unique = true)
-	private String email;
-	
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private String password;
-    
+
+    @Column(nullable = false)
+    private String firstname;
+
+    @Column(nullable = false)
+    private String lastname;
+
+    @Column(nullable = false)
+    private String school;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Assessment> assessments;
-    
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Assessment> assessmentResults;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
