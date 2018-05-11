@@ -59,6 +59,16 @@ public class QuizResultService {
         return results;
     }
 
+    public boolean getQuizResultByUserIdAndQuizId(Integer userId, Integer quizId) {
+        Optional<AssessmentResult> quizResult = quizResultRepository.findByUserIdAndAssessmentId(userId, quizId);
+
+        if (quizResult.isPresent()) {
+            return true;
+        }
+
+        return false;
+    }
+
     @Transactional
     public AssessmentResult create(Integer quizId, User user, AssessmentResult quizResult) {
         User dbUser = userRepository.findByEmail(user.getEmail()).get();

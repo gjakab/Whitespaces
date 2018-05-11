@@ -79,6 +79,19 @@ public class AssessmentControllerTest extends AbstractControllerTest {
     }
     
     @Test
+    public void getAvaiableQuizzesForUser() {
+        createAndLoginUserWithEmail(EMAIL1);
+        Assessment assessment = assessmentController.create(buildAssessmentWithName(NAME1))
+                                                     .getBody();
+        
+        List<Assessment> assessments = assessmentController.getAvaiableQuizzesForUser()
+                                                           .getBody();
+        
+        assertThat(assessments).hasSize(1);
+        assertThat(assessments.get(0)).isEqualToComparingFieldByField(assessment);
+    }
+    
+    @Test
     public void createTest() {
         createAndLoginUserWithEmail(EMAIL1);
     	Assessment created = assessmentController.create(buildAssessmentWithName(NAME1))

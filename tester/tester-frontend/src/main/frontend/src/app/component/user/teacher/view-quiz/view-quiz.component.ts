@@ -27,7 +27,7 @@ import { AnswerService } from '../../../../service/answer.service';
 export class ViewQuizComponent implements OnInit {
   quizId: number;
   quiz: Quiz;
-  typesEnum = Object.freeze({"QUESTION": "Kérdés", "ANSWER": "Válasz"})
+  typesEnum = Object.freeze({"QUESTION": "Kérdés, kategória szerkesztése", "ANSWER": "Válasz szerkesztése"})
 
   constructor(
     private quizService: QuizService,

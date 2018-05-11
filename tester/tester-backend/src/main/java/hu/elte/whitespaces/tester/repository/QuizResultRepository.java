@@ -1,5 +1,7 @@
 package hu.elte.whitespaces.tester.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +13,6 @@ public interface QuizResultRepository extends CrudRepository<AssessmentResult, I
     Iterable<AssessmentResult> findAllByAssessmentId(Integer qId);
 
     Iterable<AssessmentResult> findAllByUserId(Integer userId);
+
+    Optional<AssessmentResult> findByUserIdAndAssessmentId(Integer userId, Integer qId);
 }

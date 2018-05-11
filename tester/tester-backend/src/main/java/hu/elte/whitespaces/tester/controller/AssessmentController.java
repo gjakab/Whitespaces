@@ -28,7 +28,8 @@ import hu.elte.whitespaces.tester.service.UserService;
 public class AssessmentController {
 
     private static final String QUIZ_ID = "/{quizId}";
-    private static final String QUIZ_LIST = "/all";
+    private static final String TEACHER_QUIZ_LIST = "/teacher";
+    private static final String STUDENT_QUIZ_LIST = "/student";
 
     private AssessmentService assessmentService;
     private UserService userService;
@@ -53,9 +54,14 @@ public class AssessmentController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
-    @GetMapping(QUIZ_LIST)
+    @GetMapping(TEACHER_QUIZ_LIST)
     public ResponseEntity<List<Assessment>> getAllAssessments() {
         return ResponseEntity.ok(assessmentService.getAllAssessments());
+    }
+
+    @GetMapping(STUDENT_QUIZ_LIST)
+    public ResponseEntity<List<Assessment>> getAvaiableQuizzesForUser() {
+        return ResponseEntity.ok(assessmentService.getAvaiableQuizzesForUser(userService.getCurrentUser().getId()));
     }
 
     // @Role({TEACHER, ADMIN})
@@ -77,8 +83,7 @@ public class AssessmentController {
     }
 
     @PatchMapping(QUIZ_ID)
-    public ResponseEntity<Assessment> update(@PathVariable Integer quizId,
-            @Valid @RequestBody Assessment assessment) {
+    public ResponseEntity<Assessment> update(@PathVariable Integer quizId, @Valid @RequestBody Assessment assessment) {
         Assessment updated = assessmentService.update(quizId, assessment);
 
         if (updated != null) {
