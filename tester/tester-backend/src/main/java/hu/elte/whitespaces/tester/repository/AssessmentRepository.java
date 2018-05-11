@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 import hu.elte.whitespaces.tester.model.Assessment;
 
 @Repository
-public interface AssessmentRepository extends CrudRepository<Assessment, Integer>{
+public interface AssessmentRepository extends CrudRepository<Assessment, Integer> {
 
-	Optional<Assessment> findByName(String name);
-	Iterable<Assessment> findAllByUserId(Integer userId);
-	
+    Optional<Assessment> findByName(String name);
+
+    Iterable<Assessment> findAllByUserId(Integer userId);
+
 }

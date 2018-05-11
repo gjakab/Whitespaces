@@ -30,22 +30,22 @@ public class AssessmentController {
     private static final String QUIZ_ID = "/{quizId}";
     private static final String QUIZ_LIST = "/all";
 
-    private final AssessmentService assessmentService;
-    private final UserService userService;
+    private AssessmentService assessmentService;
+    private UserService userService;
 
     @Autowired
-    public AssessmentController(final AssessmentService assessmentService, final UserService userService) {
+    public AssessmentController(AssessmentService assessmentService, UserService userService) {
         this.assessmentService = assessmentService;
         this.userService = userService;
     }
 
     @GetMapping("")
-    public final ResponseEntity<List<Assessment>> getAllAssessmentsByUserId() {
+    public ResponseEntity<List<Assessment>> getAllAssessmentsByUserId() {
         return ResponseEntity.ok(assessmentService.getAllAssessmentsByUserId(userService.getCurrentUser().getId()));
     }
 
     @GetMapping(QUIZ_ID)
-    public final ResponseEntity<Assessment> getAssessmentById(@PathVariable final Integer quizId) {
+    public ResponseEntity<Assessment> getAssessmentById(@PathVariable Integer quizId) {
         Assessment response = assessmentService.getAssessmentById(quizId);
         if (response != null) {
             return ResponseEntity.ok(response);
@@ -54,13 +54,13 @@ public class AssessmentController {
     }
 
     @GetMapping(QUIZ_LIST)
-    public final ResponseEntity<List<Assessment>> getAllAssessments() {
+    public ResponseEntity<List<Assessment>> getAllAssessments() {
         return ResponseEntity.ok(assessmentService.getAllAssessments());
     }
 
     // @Role({TEACHER, ADMIN})
     @PostMapping("")
-    public final ResponseEntity<Assessment> create(@Valid @RequestBody final Assessment assessment) {
+    public ResponseEntity<Assessment> create(@Valid @RequestBody Assessment assessment) {
         Assessment saved = assessmentService.create(assessment, userService.getCurrentUser());
         if (saved != null) {
             return ResponseEntity.ok(saved);
@@ -69,7 +69,7 @@ public class AssessmentController {
     }
 
     @DeleteMapping(QUIZ_ID)
-    public final ResponseEntity<Assessment> delete(@PathVariable final Integer quizId) {
+    public ResponseEntity<Assessment> delete(@PathVariable Integer quizId) {
         if (assessmentService.delete(quizId)) {
             return ResponseEntity.ok().build();
         }
@@ -77,8 +77,8 @@ public class AssessmentController {
     }
 
     @PatchMapping(QUIZ_ID)
-    public final ResponseEntity<Assessment> update(@PathVariable final Integer quizId,
-            @Valid @RequestBody final Assessment assessment) {
+    public ResponseEntity<Assessment> update(@PathVariable Integer quizId,
+            @Valid @RequestBody Assessment assessment) {
         Assessment updated = assessmentService.update(quizId, assessment);
 
         if (updated != null) {

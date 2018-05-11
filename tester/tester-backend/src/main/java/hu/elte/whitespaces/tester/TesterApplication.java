@@ -11,21 +11,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class TesterApplication implements WebMvcConfigurer {
 
-    @Autowired 
-    private HandlerInterceptor authInterceptor; 
+    @Autowired
+    private HandlerInterceptor authInterceptor;
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public final void addInterceptors(final InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor);
     }
-    
-	public static void main(String[] args) {
-		SpringApplication.run(TesterApplication.class, args);
-	}
 
-	@Override
-    public void addCorsMappings(CorsRegistry registry) {
+    public static void main(final String[] args) {
+        SpringApplication.run(TesterApplication.class, args);
+    }
+
+    @Override
+    public final void addCorsMappings(final CorsRegistry registry) {
         registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE");
-        ;
     }
 }

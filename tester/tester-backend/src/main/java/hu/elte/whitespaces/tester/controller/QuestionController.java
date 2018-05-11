@@ -28,15 +28,15 @@ public class QuestionController {
     private static final String QUESTION_ID = "/question/{qId}";
     private static final String QUESTION_LIST = "/questionlist";
 
-    private final QuestionService questionService;
+    private QuestionService questionService;
 
     @Autowired
-    public QuestionController(final QuestionService questionService) {
+    public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
 
     @GetMapping(QUESTION_ID)
-    public final ResponseEntity<Question> getQuestionById(@PathVariable final Integer qId) {
+    public ResponseEntity<Question> getQuestionById(@PathVariable Integer qId) {
         Question response = questionService.getQuestionById(qId);
 
         if (response != null) {
@@ -47,13 +47,12 @@ public class QuestionController {
     }
 
     @GetMapping(QUESTION_LIST)
-    public final ResponseEntity<List<Question>> getAllQuestionsByAssessment(@PathVariable final Integer qId) {
+    public ResponseEntity<List<Question>> getAllQuestionsByAssessment(@PathVariable Integer qId) {
         return ResponseEntity.ok(questionService.getAllQuestionsByAssessmentId(qId));
     }
 
     @PostMapping("")
-    public final ResponseEntity<Question> create(@Valid @RequestBody final Question question,
-            @PathVariable final Integer qId) {
+    public ResponseEntity<Question> create(@Valid @RequestBody Question question, @PathVariable Integer qId) {
         Question saved = questionService.create(question, qId);
 
         if (saved != null) {
@@ -64,7 +63,7 @@ public class QuestionController {
     }
 
     @DeleteMapping(QUESTION_ID)
-    public final ResponseEntity<Question> delete(@PathVariable final Integer qId) {
+    public ResponseEntity<Question> delete(@PathVariable Integer qId) {
         if (questionService.delete(qId)) {
             return ResponseEntity.ok().build();
         }
@@ -73,8 +72,7 @@ public class QuestionController {
     }
 
     @PatchMapping(QUESTION_ID)
-    public final ResponseEntity<Question> update(@PathVariable final Integer qId,
-            @Valid @RequestBody final Question question) {
+    public ResponseEntity<Question> update(@PathVariable Integer qId, @Valid @RequestBody Question question) {
         Question updated = questionService.update(qId, question);
 
         if (updated != null) {

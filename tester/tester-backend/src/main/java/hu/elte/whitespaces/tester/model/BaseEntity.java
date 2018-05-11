@@ -18,10 +18,10 @@ public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private final int id;
+    private int id;
 
     @JsonIgnore
     @Version
-    private final int version;
+    private int version;
 
 }

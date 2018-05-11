@@ -7,5 +7,5 @@ import hu.elte.whitespaces.tester.model.Question;
 
 @Repository
 public interface QuestionRepository extends CrudRepository<Question, Integer> {
-	Iterable<Question> findAllByAssessmentId(Integer id);
+    Iterable<Question> findAllByAssessmentId(Integer id);
 }

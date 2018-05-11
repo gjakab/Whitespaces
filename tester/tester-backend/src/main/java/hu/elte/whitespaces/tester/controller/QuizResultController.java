@@ -30,28 +30,28 @@ public class QuizResultController {
     private static final String QUIZ_ID = "/{quizId}";
     private static final String QUIZRESULT_ID = "/{quizId}/{quizResultId}";
 
-    private final QuizResultService quizResultService;
-    private final UserService userService;
+    private QuizResultService quizResultService;
+    private UserService userService;
 
     @Autowired
-    public QuizResultController(final QuizResultService quizResultService, final UserService userService) {
+    public QuizResultController(QuizResultService quizResultService, UserService userService) {
         this.quizResultService = quizResultService;
         this.userService = userService;
     }
 
     @GetMapping("")
-    public final ResponseEntity<List<QuizResultDTO>> getAllQuizResultsByUserId() {
+    public ResponseEntity<List<QuizResultDTO>> getAllQuizResultsByUserId() {
         return ResponseEntity.ok(quizResultService.getAllQuizResultsByUserId(userService.getCurrentUser().getId()));
     }
 
     @GetMapping(QUIZ_ID)
-    public final ResponseEntity<List<QuizResultDTO>> getAllQuizResultsByQuizId(@PathVariable final Integer quizId) {
+    public ResponseEntity<List<QuizResultDTO>> getAllQuizResultsByQuizId(@PathVariable Integer quizId) {
         return ResponseEntity.ok(quizResultService.getAllQuizResultsByQuiz(quizId));
     }
 
     @PostMapping(QUIZ_ID)
-    public final ResponseEntity<AssessmentResult> create(@Valid @RequestBody final AssessmentResult quizResult,
-            @PathVariable final Integer quizId) {
+    public ResponseEntity<AssessmentResult> create(@Valid @RequestBody AssessmentResult quizResult,
+            @PathVariable Integer quizId) {
         AssessmentResult saved = quizResultService.create(quizId, userService.getCurrentUser(), quizResult);
         if (saved != null) {
             return ResponseEntity.ok(saved);
@@ -60,7 +60,7 @@ public class QuizResultController {
     }
 
     @DeleteMapping(QUIZRESULT_ID)
-    public final ResponseEntity<AssessmentResult> delete(@PathVariable final Integer quizResultId) {
+    public ResponseEntity<AssessmentResult> delete(@PathVariable Integer quizResultId) {
         if (quizResultService.delete(quizResultId)) {
             return ResponseEntity.ok().build();
         }

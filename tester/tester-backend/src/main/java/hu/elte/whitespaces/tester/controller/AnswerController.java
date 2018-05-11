@@ -28,15 +28,15 @@ public class AnswerController {
     private static final String ANSWER_ID = "/{anId}";
     private static final String ANSWER_LIST = "/answers";
 
-    private final AnswerService answerService;
+    private AnswerService answerService;
 
     @Autowired
-    public AnswerController(final AnswerService answerService) {
+    public AnswerController(AnswerService answerService) {
         this.answerService = answerService;
     }
 
     @GetMapping(ANSWER_ID)
-    public final ResponseEntity<Answer> getAnswerById(@PathVariable final Integer qId, @PathVariable final Integer anId) {
+    public ResponseEntity<Answer> getAnswerById(@PathVariable Integer qId, @PathVariable Integer anId) {
         Answer response = answerService.getAnswerByQuestionId(anId);
 
         if (response != null) {
@@ -46,12 +46,12 @@ public class AnswerController {
     }
 
     @GetMapping(ANSWER_LIST)
-    public final ResponseEntity<List<Answer>> getAllAnswersByQuestionId(@PathVariable final Integer qId) {
+    public ResponseEntity<List<Answer>> getAllAnswersByQuestionId(@PathVariable Integer qId) {
         return ResponseEntity.ok(answerService.getAllAnswersByQuestion(qId));
     }
 
     @PostMapping("")
-    public final ResponseEntity<Answer> create(@Valid @RequestBody final Answer answer, final Integer qId) {
+    public ResponseEntity<Answer> create(@Valid @RequestBody Answer answer, Integer qId) {
         Answer saved = answerService.create(answer, qId);
 
         if (saved != null) {
@@ -61,7 +61,7 @@ public class AnswerController {
     }
 
     @DeleteMapping(ANSWER_ID)
-    public final ResponseEntity<Answer> delete(@PathVariable final Integer anId) {
+    public ResponseEntity<Answer> delete(@PathVariable Integer anId) {
         if (answerService.delete(anId)) {
             return ResponseEntity.ok().build();
         }
@@ -69,7 +69,7 @@ public class AnswerController {
     }
 
     @PatchMapping(ANSWER_ID)
-    public final ResponseEntity<Answer> update(@PathVariable final Integer anId, @Valid @RequestBody final Answer answer) {
+    public ResponseEntity<Answer> update(@PathVariable Integer anId, @Valid @RequestBody Answer answer) {
         Answer updated = answerService.update(anId, answer);
 
         if (updated != null) {

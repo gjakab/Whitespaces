@@ -29,20 +29,20 @@ public class UserController {
     private static final String LOGIN = "/login";
     private static final String LOGOUT = "/logout";
 
-    private final UserService service;
+    private UserService service;
 
     @Autowired
-    UserController(final UserService service) {
+    UserController(UserService service) {
         this.service = service;
     }
 
     @GetMapping(USER_LIST)
-    public final ResponseEntity<List<User>> getAll() {
+    public ResponseEntity<List<User>> getAll() {
         return ResponseEntity.ok(service.getAllUser());
     }
 
     @GetMapping(USER_ID)
-    public final ResponseEntity<User> getUserById(@RequestParam(value = "value", required = true) final Integer id) {
+    public ResponseEntity<User> getUserById(@RequestParam(value = "value", required = true) Integer id) {
         User response = service.getUserById(id);
         if (response != null) {
             return ResponseEntity.ok(response);
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @GetMapping(EMAIL)
-    public final ResponseEntity<User> getUserByEmail(@RequestParam(value = "value", required = true) final String email) {
+    public ResponseEntity<User> getUserByEmail(@RequestParam(value = "value", required = true) String email) {
         User response = service.getUserByEmail(email);
         if (response != null) {
             return ResponseEntity.ok(response);
@@ -62,7 +62,7 @@ public class UserController {
     }
 
     @PostMapping("")
-    public final ResponseEntity<User> create(@RequestBody final User user) {
+    public ResponseEntity<User> create(@RequestBody User user) {
         User saved = service.register(user);
         if (saved != null) {
             return ResponseEntity.ok(saved);
@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @PostMapping(LOGIN)
-    public final ResponseEntity<User> login(@RequestBody final User user) {
+    public ResponseEntity<User> login(@RequestBody User user) {
         User loggedInUser = service.login(user);
         if (loggedInUser != null) {
             return ResponseEntity.ok(loggedInUser);
@@ -82,13 +82,13 @@ public class UserController {
     }
 
     @PostMapping(LOGOUT)
-    public final ResponseEntity<User> logout() {
+    public ResponseEntity<User> logout() {
         service.logout();
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(USER_ID)
-    public final ResponseEntity<User> delete(@RequestParam(value = "value", required = true) final Integer id) {
+    public ResponseEntity<User> delete(@RequestParam(value = "value", required = true) Integer id) {
         if (service.delete(id)) {
             return ResponseEntity.ok().build();
         } else {

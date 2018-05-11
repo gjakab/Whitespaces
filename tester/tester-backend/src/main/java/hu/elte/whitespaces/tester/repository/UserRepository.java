@@ -10,6 +10,8 @@ import hu.elte.whitespaces.tester.model.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
 
+    @Override
     Optional<User> findById(Integer id);
+
     Optional<User> findByEmail(String email);
 }
