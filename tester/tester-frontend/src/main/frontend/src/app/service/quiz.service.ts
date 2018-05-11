@@ -24,6 +24,19 @@ export class QuizService{
       )
   }
 
+  getAvailableQuizzesForUser() {
+    return this.http.get('/api/users/quizzes/all')
+      .map((response: Response) => {
+        const quizzes: Quiz[] = response.json();
+        return quizzes;
+      })
+      .catch(
+        (error: Response) => {
+          return Observable.throw(error);
+        }
+      )
+  }
+
   deleteQuiz(quizId: Number) {
     console.log(quizId);
     return this.http.delete('/api/users/quizzes/' + quizId)

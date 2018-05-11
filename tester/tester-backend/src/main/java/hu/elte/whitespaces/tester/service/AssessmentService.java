@@ -22,11 +22,14 @@ public class AssessmentService {
 
     private AssessmentRepository assessmentRepository;
     private UserRepository userRepository;
+    private QuizResultService quizResultService;
 
     @Autowired
-    public AssessmentService(AssessmentRepository assessmentRepository, UserRepository userRepository) {
+    public AssessmentService(AssessmentRepository assessmentRepository, UserRepository userRepository,
+            QuizResultService quizResultService) {
         this.assessmentRepository = assessmentRepository;
         this.userRepository = userRepository;
+        this.quizResultService = quizResultService;
     }
 
     public Assessment getAssessmentById(Integer id) {
@@ -55,6 +58,19 @@ public class AssessmentService {
         List<Assessment> results = new ArrayList<>();
 
         assessments.forEach(assessment -> results.add(assessment));
+        return results;
+    }
+
+    public List<Assessment> getAvaiableQuizzesForUser(Integer userId) {
+        List<Assessment> results = new ArrayList<>();
+
+        for (Assessment quiz : getAllAssessments()) {
+            if (!quizResultService.getQuizResultByUserIdAndQuizId(userId, quiz.getId())) {
+                quiz.setQuestions(null);
+                results.add(quiz);
+            }
+        }
+
         return results;
     }
 

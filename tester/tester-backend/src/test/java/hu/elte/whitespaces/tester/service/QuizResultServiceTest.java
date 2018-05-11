@@ -21,9 +21,12 @@ import hu.elte.whitespaces.tester.repository.UserRepository;
 
 public class QuizResultServiceTest {
 	
-	private final static int QUIZRESULT_ID = 100;
-	private final static int USER_ID = 100;
-	private final static int QUIZ_ID = 100;
+	private static final int QUIZRESULT_ID = 100;
+	private static final int USER_ID = 100;
+	private static final int QUIZ_ID = 100;
+	private static final String EMAIL = "EMAIL";
+	private static final String FIRSTNAME = "FIRSTNAME";
+	private static final String LASTNAME = "LASTNAME";
 	
 	private final AssessmentRepository quizResository = mock(AssessmentRepository.class);
 	private final UserRepository userRepository = mock(UserRepository.class);
@@ -44,8 +47,8 @@ public class QuizResultServiceTest {
 		
 		User user = new User();
 		user.setId(USER_ID);
-		user.setFirstname("FIRSTNAME");
-		user.setLastname("LASTNAME");
+		user.setFirstname(FIRSTNAME);
+		user.setLastname(LASTNAME);
 		quizResult.setUser(user);
 		
 		Assessment quiz = new Assessment();
@@ -64,8 +67,8 @@ public class QuizResultServiceTest {
 		
 		User user = new User();
 		user.setId(USER_ID);
-		user.setFirstname("FIRSTNAME");
-		user.setLastname("LASTNAME");
+		user.setFirstname(FIRSTNAME);
+		user.setLastname(LASTNAME);
 		quizResult.setUser(user);
 		
 		Assessment quiz = new Assessment();
@@ -77,6 +80,18 @@ public class QuizResultServiceTest {
 		verify(quizResultRepository).findAllByUserId(USER_ID);
 	}
 	
+    @Test
+    public void getQuizResultByUserIdAndQuizId() {
+        AssessmentResult quizResult = new AssessmentResult();
+        
+        quizResult.setId(QUIZRESULT_ID);
+        when(quizResultRepository.findByUserIdAndAssessmentId(USER_ID, QUIZ_ID)).thenReturn(Optional.of(quizResult));
+        
+        assertEquals(quizResultService.getQuizResultByUserIdAndQuizId(USER_ID, QUIZ_ID), true);
+        
+        verify(quizResultRepository).findByUserIdAndAssessmentId(USER_ID, QUIZ_ID);
+    }
+	
 	@Test
 	public void createTest() {
 		AssessmentResult quizResult = new AssessmentResult();
@@ -84,12 +99,12 @@ public class QuizResultServiceTest {
 		
 		User user = new User();
 		user.setId(USER_ID);
-		user.setEmail("email");
+		user.setEmail(EMAIL);
 		
 		Assessment quiz = new Assessment();
 		quiz.setId(QUIZ_ID);
 
-        when(userRepository.findByEmail("email")).thenReturn(Optional.of(user));
+        when(userRepository.findByEmail(EMAIL)).thenReturn(Optional.of(user));
         when(quizResository.findById(QUIZ_ID)).thenReturn(Optional.of(quiz));
 		when(quizResultRepository.save(quizResult)).thenReturn(quizResult);
 		
