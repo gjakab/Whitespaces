@@ -66,7 +66,28 @@ public class QuizResultService {
 		quizResult.setUser(dbUser);
 		quizResult.setAssessment(quiz);
 		
-		return quizResultRepository.save(quizResult);
+		quiz.setStat(getNewStatForQuiz(quiz, quizResult));
+		assessmentRepository.save(quiz);
+				
+		
+		return quizResultRepository.save(quizResult);	
+	}
+	
+	private double getNewStatForQuiz(Assessment quiz, AssessmentResult quizResult) {
+		double newStat = 0.0;
+		int size = 0;
+		
+		Iterable<AssessmentResult> quizResults = quizResultRepository.findAllByAssessmentId(quiz.getId());
+		for (AssessmentResult qr: quizResults) {
+			newStat += qr.getScore();
+			size++;
+		}
+		
+		newStat += quizResult.getScore();
+		size++;
+		newStat /= size;
+		
+		return newStat;
 	}
 	
 	@Transactional
