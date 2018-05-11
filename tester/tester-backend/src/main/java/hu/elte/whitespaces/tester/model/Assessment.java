@@ -1,6 +1,7 @@
 package hu.elte.whitespaces.tester.model;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -48,4 +49,9 @@ public class Assessment extends BaseEntity {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "assessment")
     private List<AssessmentResult> assessmentResults;
+    
+    @Override
+    public String toString() {
+    	return "name: " + this.name + ", questions: " + Arrays.toString(this.getQuestions().toArray());
+    }
 }

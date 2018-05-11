@@ -42,4 +42,8 @@ public class Question extends BaseEntity {
     @JoinColumn(name = "QUESTION_ID")
     private List<Answer> answers;
 
+    @Override
+    public String toString() {
+        return "question: " + this.question + ", category: " + this.category;
+    }
 }

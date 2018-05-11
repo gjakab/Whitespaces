@@ -33,4 +33,8 @@ public class Answer extends BaseEntity {
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
+    @Override
+    public String toString() {
+        return "answer: " + this.answer + ", right: " + this.rightAnswer;
+    }
 }

@@ -34,7 +34,7 @@ public class AssessmentController {
     private final UserService userService;
 
     @Autowired
-    public final AssessmentController(final AssessmentService assessmentService, final UserService userService) {
+    public AssessmentController(final AssessmentService assessmentService, final UserService userService) {
         this.assessmentService = assessmentService;
         this.userService = userService;
     }
@@ -47,7 +47,6 @@ public class AssessmentController {
     @GetMapping(QUIZ_ID)
     public final ResponseEntity<Assessment> getAssessmentById(@PathVariable final Integer quizId) {
         Assessment response = assessmentService.getAssessmentById(quizId);
-
         if (response != null) {
             return ResponseEntity.ok(response);
         }
@@ -62,7 +61,6 @@ public class AssessmentController {
     // @Role({TEACHER, ADMIN})
     @PostMapping("")
     public final ResponseEntity<Assessment> create(@Valid @RequestBody final Assessment assessment) {
-        System.out.println("ASSESMENT: " + assessment);
         Assessment saved = assessmentService.create(assessment, userService.getCurrentUser());
         if (saved != null) {
             return ResponseEntity.ok(saved);
@@ -88,5 +86,4 @@ public class AssessmentController {
         }
         return ResponseEntity.status(NOT_FOUND).build();
     }
-
 }
