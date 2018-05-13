@@ -84,7 +84,7 @@ public class UserController {
     @PostMapping(LOGOUT)
     public ResponseEntity<User> logout() {
         service.logout();
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new User());
     }
 
     @DeleteMapping(USER_ID)

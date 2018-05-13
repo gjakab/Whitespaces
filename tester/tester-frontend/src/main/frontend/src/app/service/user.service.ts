@@ -5,13 +5,15 @@ import 'rxjs/Rx';
 
 import { User } from "../model/user.model";
 import { LoginUser } from "../model/login-user.model";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class UserService{
 
     loggedInUser: User = null;
 
-    constructor(private http: Http) {}
+    constructor(private http: Http,
+                private router: Router) {}
 
     registerUser(user: User) {
         return this.http.post('api/users', user)
@@ -21,6 +23,7 @@ export class UserService{
                         user.password = null;
                         this.loggedInUser = user;
                         sessionStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
+                        this.router.navigate(['/']);
                     }
                 )
             .catch(
@@ -38,6 +41,7 @@ export class UserService{
                     user.password = null;
                     this.loggedInUser = user;
                     sessionStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
+                    this.router.navigate(['/']);
                 }
             )
             .catch(
@@ -79,9 +83,11 @@ export class UserService{
     logoutUser() {
         return this.http.post('api/users/logout', null)
             .map(
-                (response: Response) => {
+                (response) => {
+                    console.log("hello");
                     this.loggedInUser = null;
                     sessionStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
+                    this.router.navigate(['/']);   
                 }
             )
             .catch(
