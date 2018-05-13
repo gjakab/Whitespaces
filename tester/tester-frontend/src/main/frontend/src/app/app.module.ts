@@ -24,6 +24,8 @@ import { ViewResultsComponent } from './component/user/teacher/view-results/view
 import { QuizResultService } from './service/quiz-result.service';
 import { FindQuizComponent } from './component/user/student/find-quiz/find-quiz.component';
 import { QuizResultsComponent } from './component/user/student/quiz-results/quiz-results.component';
+import { AuthGuardTeacher } from './service/guard/auth-guard-teacher.service';
+import { AuthGuardStudent } from './service/guard/auth-guard-student.service';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { QuizResultsComponent } from './component/user/student/quiz-results/quiz
     QuestionService,
     AnswerService,
     QuizResultService,
+    AuthGuardTeacher,
+    AuthGuardStudent,
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
