@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import { Quiz } from "../model/quiz.model";
-import { newQuizDTO } from "../model/newQuizDTO.model";
+import { NewQuizDTO } from "../model/newQuizDTO.model";
 
 @Injectable()
 export class QuizService{
@@ -16,7 +16,21 @@ export class QuizService{
       .map((response: Response) => {
         const quizzes: Quiz[] = response.json();
         return quizzes;
-      }).catch(
+      })
+      .catch(
+        (error: Response) => {
+          return Observable.throw(error);
+        }
+      )
+  }
+
+  getAvailableQuizzesForUser() {
+    return this.http.get('/api/users/quizzes/student')
+      .map((response: Response) => {
+        const quizzes: Quiz[] = response.json();
+        return quizzes;
+      })
+      .catch(
         (error: Response) => {
           return Observable.throw(error);
         }
@@ -33,13 +47,26 @@ export class QuizService{
       )
   }
 
-  createQuiz(newQuiz: newQuizDTO) {
+  createQuiz(newQuiz: NewQuizDTO) {
     console.log("UJ QUIZ", newQuiz)
     return this.http.post('/api/users/quizzes/', newQuiz)
-    .catch(
-      (error: Response) => {
-        return Observable.throw(error);
-      }
-    )
+      .catch(
+        (error: Response) => {
+          return Observable.throw(error);
+        }
+      )
+  }
+
+  getQuizById(quizId: number) {
+    return this.http.get('/api/users/quizzes/' + quizId)
+      .map((response: Response) => {
+        const quiz: Quiz = response.json();
+        return quiz;
+      })
+      .catch(
+        (error: Response) => {
+          return Observable.throw(error);
+        }
+      )
   }
 }

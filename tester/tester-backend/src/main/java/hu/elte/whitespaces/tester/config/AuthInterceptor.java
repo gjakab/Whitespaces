@@ -18,15 +18,17 @@ import hu.elte.whitespaces.tester.service.UserService;
 @Component
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
+    private static final int UNAUTHORIZED = 401;
+
     @Autowired
     private UserService userService;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        if(handler instanceof HandlerMethod) {
+    public final boolean preHandle(final HttpServletRequest request, final HttpServletResponse response,
+            final Object handler) {
+        if (handler instanceof HandlerMethod) {
             List<User.Role> routeRoles = getRoles((HandlerMethod) handler);
             User user = userService.getCurrentUser();
-
 
             if (routeRoles.isEmpty() || routeRoles.contains(User.Role.GUEST)) {
                 return true;
@@ -35,14 +37,17 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             if (user != null && routeRoles.contains(user.getRole())) {
                 return true;
             }
-            response.setStatus(401);
+            response.setStatus(UNAUTHORIZED);
             return false;
         }
         return true;
     }
 
-    private List<User.Role> getRoles(HandlerMethod handler) {
+    private List<User.Role> getRoles(final HandlerMethod handler) {
         Role role = handler.getMethodAnnotation(Role.class);
-        return role == null ? Collections.emptyList() : Arrays.asList(role.value());
+        if (role == null) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(role.value());
     }
 }

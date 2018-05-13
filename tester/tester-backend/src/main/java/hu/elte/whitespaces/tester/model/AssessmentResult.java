@@ -19,23 +19,23 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 public class AssessmentResult extends BaseEntity {
-	
-	@Column(nullable = false)
-	private int score;
-	
-	@Column(nullable = false)
-	private double stats;
-	
+
+    @Column(nullable = false)
+    private int score;
+
+    @Column(nullable = false)
+    private double stats;
+
     @JsonIgnore
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;
-    
+
     @JsonIgnore
     @ManyToOne(targetEntity = Assessment.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSESSMENT_ID")
     private Assessment assessment;
-	
+
 }

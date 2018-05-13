@@ -17,8 +17,7 @@ public class AssessmentControllerTest extends AbstractControllerTest {
     
     private final static String NAME1 = "ASSESSMENT NAME";
     private final static String NAME2 = "ASSESSMENT NAME2";
-    private final static Double STAT1 = 99.9;
-    private final static Double STAT2 = 89.9;
+    private final static Double STAT = 89.9;
     
     private final static String FIRSTNAME = "FIRSTNAME1";
     private final static String LASTNAME = "LASTNAME1";
@@ -79,6 +78,19 @@ public class AssessmentControllerTest extends AbstractControllerTest {
     }
     
     @Test
+    public void getAvaiableQuizzesForUser() {
+        createAndLoginUserWithEmail(EMAIL1);
+        Assessment assessment = assessmentController.create(buildAssessmentWithName(NAME1))
+                                                     .getBody();
+        
+        List<Assessment> assessments = assessmentController.getAvaiableQuizzesForUser()
+                                                           .getBody();
+        
+        assertThat(assessments).hasSize(1);
+        assertThat(assessments.get(0)).isEqualToComparingFieldByField(assessment);
+    }
+    
+    @Test
     public void createTest() {
         createAndLoginUserWithEmail(EMAIL1);
     	Assessment created = assessmentController.create(buildAssessmentWithName(NAME1))
@@ -104,11 +116,11 @@ public class AssessmentControllerTest extends AbstractControllerTest {
 													.getBody();
     	
     	assessment.setName(NAME2);
-    	assessment.setStat(STAT2);
+    	assessment.setStat(STAT);
     	Assessment updated = assessmentController.update(assessment.getId(), assessment).getBody();
     	
     	assertThat(updated.getName()).isEqualTo(NAME2);
-    	assertThat(updated.getStat()).isEqualTo(STAT2);
+    	assertThat(updated.getStat()).isEqualTo(STAT);
     }
     
     private void logout() {

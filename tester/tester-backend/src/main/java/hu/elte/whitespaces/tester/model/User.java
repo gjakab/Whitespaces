@@ -24,99 +24,35 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 public class User extends BaseEntity {
-	
-	@Column(nullable = false)
-	private String firstname;
-	
-	@Column(nullable = false)
-	private String lastname;
-	
-	@Column(nullable = false)
-	private String school;
-		
-	@Column(nullable = false, unique = true)
-	private String email;
-	
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private String password;
-    
+
+    @Column(nullable = false)
+    private String firstname;
+
+    @Column(nullable = false)
+    private String lastname;
+
+    @Column(nullable = false)
+    private String school;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Assessment> assessments;
-    
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Assessment> assessmentResults;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-
-	public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getSchool() {
-        return school;
-    }
-
-    public void setSchool(String school) {
-        this.school = school;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<Assessment> getAssessments() {
-        return assessments;
-    }
-
-    public void setAssesments(List<Assessment> assessments) {
-        this.assessments = assessments;
-    }
-
-    public List<Assessment> getAssesmentResults() {
-        return this.assessmentResults;
-    }
-
-    public void setAssesmentResults(List<Assessment> AssesmentResults) {
-        this.assessmentResults = AssesmentResults;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     public enum Role {
         STUDENT, TEACHER, ADMIN, GUEST

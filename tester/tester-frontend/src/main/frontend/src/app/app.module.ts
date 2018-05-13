@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { SignInComponent } from './component/user/sign-in/sign-in.component';
@@ -12,10 +13,17 @@ import { SignUpComponent } from './component/user/sign-up/sign-up.component';
 import { AppRoutingModule } from './routing/app-routing.module';
 import { UserService } from './service/user.service';
 import { QuizService } from './service/quiz.service';
+import { QuestionService } from './service/question.service';
 import { HeaderComponent } from './component/header/header.component';
 import { QuizListComponent } from './component/user/teacher/quiz-list/quiz-list.component';
 import { NewQuizComponent } from './component/user/teacher/new-quiz/new-quiz.component';
-
+import { ViewQuizComponent } from './component/user/teacher/view-quiz/view-quiz.component';
+import { EditDataModalComponent } from './component/user/edit-data-modal/edit-data-modal.component';
+import { AnswerService } from './service/answer.service';
+import { ViewResultsComponent } from './component/user/teacher/view-results/view-results.component';
+import { QuizResultService } from './service/quiz-result.service';
+import { FindQuizComponent } from './component/user/student/find-quiz/find-quiz.component';
+import { QuizResultsComponent } from './component/user/student/quiz-results/quiz-results.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +33,14 @@ import { NewQuizComponent } from './component/user/teacher/new-quiz/new-quiz.com
     HeaderComponent,
     QuizListComponent,
     NewQuizComponent,
+    ViewQuizComponent,
+    EditDataModalComponent,
+    ViewResultsComponent,
+    FindQuizComponent,
+    QuizResultsComponent,
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -38,11 +52,17 @@ import { NewQuizComponent } from './component/user/teacher/new-quiz/new-quiz.com
   providers: [
     UserService,
     QuizService,
+    QuestionService,
+    AnswerService,
+    QuizResultService,
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    EditDataModalComponent,
+  ]
 })
 export class AppModule { }
