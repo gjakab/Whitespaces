@@ -26,6 +26,7 @@ import { FindQuizComponent } from './component/user/student/find-quiz/find-quiz.
 import { QuizResultsComponent } from './component/user/student/quiz-results/quiz-results.component';
 import { AuthGuardTeacher } from './service/guard/auth-guard-teacher.service';
 import { AuthGuardStudent } from './service/guard/auth-guard-student.service';
+import { QuizFillComponent } from './component/user/student/quiz-fill/quiz-fill.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AuthGuardStudent } from './service/guard/auth-guard-student.service';
     ViewResultsComponent,
     FindQuizComponent,
     QuizResultsComponent,
+    QuizFillComponent,
   ],
   imports: [
     NgbModule.forRoot(),

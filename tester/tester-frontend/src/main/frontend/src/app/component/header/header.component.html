@@ -7,6 +7,9 @@
     <li class="nav-item">
       <a class="nav-link" routerLink="users/teacher/newquiz" *ngIf="userService.isTeacher()">Új quiz</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="users/student/findquiz" *ngIf="userService.isStudent()">Quiz keresése</a>
+    </li>
   </ul>
   <ul class="navbar-nav ml-auto">
     <li class="nav-item">

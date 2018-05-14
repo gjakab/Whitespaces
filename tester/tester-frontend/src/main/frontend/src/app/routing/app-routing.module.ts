@@ -11,6 +11,7 @@ import { ViewResultsComponent } from "../component/user/teacher/view-results/vie
 import { FindQuizComponent } from "../component/user/student/find-quiz/find-quiz.component";
 import { QuizResultsComponent } from "../component/user/student/quiz-results/quiz-results.component";
 import { AuthGuardStudent } from "../service/guard/auth-guard-student.service";
+import { QuizFillComponent } from "../component/user/student/quiz-fill/quiz-fill.component";
 
 const appRoutes: Routes = [
     { path: 'users/register', component: SignUpComponent},
@@ -20,7 +21,7 @@ const appRoutes: Routes = [
     { path: 'users/teacher/quizlist/:quizId/results', canActivate: [AuthGuardTeacher], component: ViewResultsComponent},
     { path: 'users/teacher/newquiz', canActivate: [AuthGuardTeacher], component: NewQuizComponent},
     { path: 'users/student/findquiz', canActivate: [AuthGuardStudent], component: FindQuizComponent},
-    { path: 'users/student/findquiz/:quizId', canActivate: [AuthGuardStudent], component: FindQuizComponent},
+    { path: 'users/student/findquiz/:quizId', canActivate: [AuthGuardStudent], component: QuizFillComponent},
     { path: 'users/student/results', canActivate: [AuthGuardStudent], component: QuizResultsComponent},
 ];
 
