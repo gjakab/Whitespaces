@@ -20,10 +20,7 @@ export class UserService{
             .map(
                 (response: Response) => {
                         let user: User = response.json();
-                        user.password = null;
-                        this.loggedInUser = user;
-                        sessionStorage.setItem('loggedInUser', JSON.stringify(this.loggedInUser));
-                        this.router.navigate(['/']);
+                        this.router.navigate(['/users/login']);
                     }
                 )
             .catch(
