@@ -1,14 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
+import { Router } from "@angular/router";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import { QuizResultDTO } from "../model/quizResultDTO";
+import { QuizResult } from "../model/quiz-result.model";
 
 @Injectable()
 export class QuizResultService{
 
-  constructor(private http: Http) {}
+  constructor(private http: Http,
+              private router: Router) {}
 
   getQuizResultsOfQuiz(quizId: number) {
     return this.http.get('/api/users/quizresults/' + quizId)
@@ -44,5 +47,19 @@ export class QuizResultService{
         }
       )
   }
+
+  createQuizResult(quizResult: QuizResult, quizId: number) {
+    return this.http.post('/api/users/quizresults/' + quizId, quizResult)
+        .map(
+            (response: Response) => {
+                    this.router.navigate(['users/student/findquiz']);
+                }
+            )
+        .catch(
+            (error: Response) => {
+                return Observable.throw(error);
+            }
+        );
+}
 
 }
