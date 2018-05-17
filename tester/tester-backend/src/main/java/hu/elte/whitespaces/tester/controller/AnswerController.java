@@ -37,6 +37,7 @@ public class AnswerController {
         this.answerService = answerService;
     }
 
+    @Role(User.Role.TEACHER)
     @GetMapping(ANSWER_ID)
     public ResponseEntity<Answer> getAnswerById(@PathVariable Integer qId, @PathVariable Integer anId) {
         Answer response = answerService.getAnswerByQuestionId(anId);
@@ -47,11 +48,13 @@ public class AnswerController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    @Role(User.Role.TEACHER)
     @GetMapping(ANSWER_LIST)
     public ResponseEntity<List<Answer>> getAllAnswersByQuestionId(@PathVariable Integer qId) {
         return ResponseEntity.ok(answerService.getAllAnswersByQuestion(qId));
     }
 
+    @Role(User.Role.TEACHER)
     @PostMapping("")
     public ResponseEntity<Answer> create(@Valid @RequestBody Answer answer, Integer qId) {
         Answer saved = answerService.create(answer, qId);

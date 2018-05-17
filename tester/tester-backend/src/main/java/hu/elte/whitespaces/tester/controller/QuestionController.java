@@ -48,11 +48,13 @@ public class QuestionController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    @Role({ User.Role.TEACHER, User.Role.STUDENT })
     @GetMapping(QUESTION_LIST)
     public ResponseEntity<List<Question>> getAllQuestionsByAssessment(@PathVariable Integer qId) {
         return ResponseEntity.ok(questionService.getAllQuestionsByAssessmentId(qId));
     }
 
+    @Role(User.Role.TEACHER)
     @PostMapping("")
     public ResponseEntity<Question> create(@Valid @RequestBody Question question, @PathVariable Integer qId) {
         Question saved = questionService.create(question, qId);
