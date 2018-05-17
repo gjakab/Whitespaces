@@ -18,52 +18,59 @@
     </div>
 
     <ng-template #atleastone>
-        <input
-        type='text'
-        style='padding:8px;margin:15px auto;width:30%;'
-        placeholder='Keresés quiz neve alapján...'
-        (keyup)='updateFilter($event)'
-      />
+        <div class="card mt-40" style="width: 20rem;">
+            <h5 class="card-header">Keresés</h5>
+            <div class="card-body">
+                <input
+                type='text'
+                style='padding:8px;margin:15px auto;width:100%;'
+                placeholder='Keresés quiz neve alapján...'
+                (keyup)='updateFilter($event)'
+              />
+            </div>
+        </div>
       
-      <ngx-datatable
-        #table
-        class="bootstrap"
-        [rows]="quizResults"
-        [columnMode]="'force'"
-        [headerHeight]="50"
-        [footerHeight]="40"
-        [rowHeight]="'70'"
-        [limit]="10"
-        [messages]="messages"
-        >
-        <ngx-datatable-column name="quizName" [sortable]="true">
-          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-              <span (click)="sort()">Quiz név</span>
-          </ng-template>
-          <ng-template let-value="value" ngx-datatable-cell-template>
-              {{value}}
-          </ng-template>
-        </ngx-datatable-column>
+      <div class="card mt-30">
+          <ngx-datatable
+            #table
+            class="bootstrap"
+            [rows]="quizResults"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="40"
+            [rowHeight]="'70'"
+            [limit]="10"
+            [messages]="messages"
+            >
+            <ngx-datatable-column name="quizName" [sortable]="true">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span (click)="sort()">Quiz név</span>
+              </ng-template>
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{value}}
+              </ng-template>
+            </ngx-datatable-column>
+    
+            <ngx-datatable-column name="score">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span (click)="sort()"><i class="fas fa-pencil-alt"></i> Pontszám</span>
+              </ng-template>
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                <span class="badge badge-pill badge-primary">{{value}}</span>
+              </ng-template>
+            </ngx-datatable-column>
+    
+            <ngx-datatable-column name="stats">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span (click)="sort()"><i class="fas fa-percent"></i> Arány</span>
+              </ng-template>
+              <ng-template let-value="value"  ngx-datatable-cell-template>
+                <span class="badge badge-pill badge-primary">{{value}}</span>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+      </div>
 
-        <ngx-datatable-column name="score">
-          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-              <span (click)="sort()"><i class="fas fa-pencil-alt"></i> Pontszám</span>
-          </ng-template>
-          <ng-template let-value="value" ngx-datatable-cell-template>
-            <span class="badge badge-pill badge-primary">{{value}}</span>
-          </ng-template>
-        </ngx-datatable-column>
-
-        <ngx-datatable-column name="stats">
-          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-              <span (click)="sort()"><i class="fas fa-percent"></i> Arány</span>
-          </ng-template>
-          <ng-template let-value="value"  ngx-datatable-cell-template>
-            <span class="badge badge-pill badge-primary">{{value}}</span>
-          </ng-template>
-        </ngx-datatable-column>
-        
-      </ngx-datatable>
     </ng-template>
 
   </ng-template>

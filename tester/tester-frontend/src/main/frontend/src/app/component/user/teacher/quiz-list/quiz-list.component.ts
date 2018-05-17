@@ -42,25 +42,16 @@ export class QuizListComponent implements OnInit {
   
       this.quizzes = newArray.slice();
     });
-
-/*     var newArray = this.quizzes.slice();
-    var index = newArray.indexOf(quiz);
-    newArray.splice(index, 1);
-
-    this.quizzes = newArray.slice(); */
   }
 
   updateFilter(event) {
     const value = event.target.value.toLowerCase();
 
-    // filter our data
     const temp = this.temp.filter(function(quiz) {
       return quiz.name.toLowerCase().indexOf(value) !== -1 || !value;
     });
 
-    // update the rows
     this.quizzes = temp;
-    // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
   }
 

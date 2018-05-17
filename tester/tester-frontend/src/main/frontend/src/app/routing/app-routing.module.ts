@@ -12,8 +12,10 @@ import { FindQuizComponent } from "../component/user/student/find-quiz/find-quiz
 import { QuizResultsComponent } from "../component/user/student/quiz-results/quiz-results.component";
 import { AuthGuardStudent } from "../service/guard/auth-guard-student.service";
 import { QuizFillComponent } from "../component/user/student/quiz-fill/quiz-fill.component";
+import { HomePageComponent } from "../component/user/home-page/home-page.component";
 
 const appRoutes: Routes = [
+    { path: '', component: HomePageComponent},
     { path: 'users/register', component: SignUpComponent},
     { path: 'users/login', component: SignInComponent},
     { path: 'users/teacher/quizlist', canActivate: [AuthGuardTeacher], component: QuizListComponent},
