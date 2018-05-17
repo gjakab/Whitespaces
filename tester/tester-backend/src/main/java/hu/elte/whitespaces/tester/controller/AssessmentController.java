@@ -48,7 +48,7 @@ public class AssessmentController {
         return ResponseEntity.ok(assessmentService.getAllAssessmentsByUserId(userService.getCurrentUser().getId()));
     }
 
-    @Role({User.Role.TEACHER, User.Role.STUDENT})
+    @Role({ User.Role.TEACHER, User.Role.STUDENT })
     @GetMapping(QUIZ_ID)
     public ResponseEntity<Assessment> getAssessmentById(@PathVariable Integer quizId) {
         Assessment response = assessmentService.getAssessmentById(quizId);

@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.elte.whitespaces.tester.config.Role;
 import hu.elte.whitespaces.tester.model.Answer;
+import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.service.AnswerService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -60,6 +62,7 @@ public class AnswerController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    @Role(User.Role.TEACHER)
     @DeleteMapping(ANSWER_ID)
     public ResponseEntity<Answer> delete(@PathVariable Integer anId) {
         if (answerService.delete(anId)) {
@@ -68,6 +71,7 @@ public class AnswerController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    @Role(User.Role.TEACHER)
     @PatchMapping(ANSWER_ID)
     public ResponseEntity<Answer> update(@PathVariable Integer anId, @Valid @RequestBody Answer answer) {
         Answer updated = answerService.update(anId, answer);
