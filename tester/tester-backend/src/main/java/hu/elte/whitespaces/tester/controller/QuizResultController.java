@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.elte.whitespaces.tester.config.Role;
 import hu.elte.whitespaces.tester.model.AssessmentResult;
+import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.model.dto.QuizResultDTO;
 import hu.elte.whitespaces.tester.model.dto.StudentQuizResultDTO;
 import hu.elte.whitespaces.tester.service.QuizResultService;
@@ -40,16 +42,19 @@ public class QuizResultController {
         this.userService = userService;
     }
 
+    @Role(User.Role.STUDENT)
     @GetMapping("")
     public ResponseEntity<List<StudentQuizResultDTO>> getAllQuizResultsByUserId() {
         return ResponseEntity.ok(quizResultService.getAllQuizResultsByUserId(userService.getCurrentUser().getId()));
     }
 
+    @Role(User.Role.TEACHER)
     @GetMapping(QUIZ_ID)
     public ResponseEntity<List<QuizResultDTO>> getAllQuizResultsByQuizId(@PathVariable Integer quizId) {
         return ResponseEntity.ok(quizResultService.getAllQuizResultsByQuiz(quizId));
     }
 
+    @Role(User.Role.STUDENT)
     @PostMapping(QUIZ_ID)
     public ResponseEntity<AssessmentResult> create(@Valid @RequestBody AssessmentResult quizResult,
             @PathVariable Integer quizId) {
@@ -60,6 +65,7 @@ public class QuizResultController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    @Role(User.Role.TEACHER)
     @DeleteMapping(QUIZRESULT_ID)
     public ResponseEntity<AssessmentResult> delete(@PathVariable Integer quizResultId) {
         if (quizResultService.delete(quizResultId)) {

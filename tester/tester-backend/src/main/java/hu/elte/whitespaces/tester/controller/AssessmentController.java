@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.elte.whitespaces.tester.config.Role;
 import hu.elte.whitespaces.tester.model.Assessment;
+import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.service.AssessmentService;
 import hu.elte.whitespaces.tester.service.UserService;
 
@@ -40,11 +42,13 @@ public class AssessmentController {
         this.userService = userService;
     }
 
+    @Role(User.Role.TEACHER)
     @GetMapping("")
     public ResponseEntity<List<Assessment>> getAllAssessmentsByUserId() {
         return ResponseEntity.ok(assessmentService.getAllAssessmentsByUserId(userService.getCurrentUser().getId()));
     }
 
+    @Role({ User.Role.TEACHER, User.Role.STUDENT })
     @GetMapping(QUIZ_ID)
     public ResponseEntity<Assessment> getAssessmentById(@PathVariable Integer quizId) {
         Assessment response = assessmentService.getAssessmentById(quizId);
@@ -54,17 +58,19 @@ public class AssessmentController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    @Role(User.Role.TEACHER)
     @GetMapping(TEACHER_QUIZ_LIST)
     public ResponseEntity<List<Assessment>> getAllAssessments() {
         return ResponseEntity.ok(assessmentService.getAllAssessments());
     }
 
+    @Role(User.Role.STUDENT)
     @GetMapping(STUDENT_QUIZ_LIST)
     public ResponseEntity<List<Assessment>> getAvaiableQuizzesForUser() {
         return ResponseEntity.ok(assessmentService.getAvaiableQuizzesForUser(userService.getCurrentUser().getId()));
     }
 
-    // @Role({TEACHER, ADMIN})
+    @Role(User.Role.TEACHER)
     @PostMapping("")
     public ResponseEntity<Assessment> create(@Valid @RequestBody Assessment assessment) {
         Assessment saved = assessmentService.create(assessment, userService.getCurrentUser());
@@ -74,6 +80,7 @@ public class AssessmentController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    @Role(User.Role.TEACHER)
     @DeleteMapping(QUIZ_ID)
     public ResponseEntity<Assessment> delete(@PathVariable Integer quizId) {
         if (assessmentService.delete(quizId)) {
@@ -82,6 +89,7 @@ public class AssessmentController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    @Role(User.Role.TEACHER)
     @PatchMapping(QUIZ_ID)
     public ResponseEntity<Assessment> update(@PathVariable Integer quizId, @Valid @RequestBody Assessment assessment) {
         Assessment updated = assessmentService.update(quizId, assessment);

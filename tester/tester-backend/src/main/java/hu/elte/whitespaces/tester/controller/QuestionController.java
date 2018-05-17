@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.elte.whitespaces.tester.config.Role;
 import hu.elte.whitespaces.tester.model.Question;
+import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.service.QuestionService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -46,11 +48,13 @@ public class QuestionController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    @Role({ User.Role.TEACHER, User.Role.STUDENT })
     @GetMapping(QUESTION_LIST)
     public ResponseEntity<List<Question>> getAllQuestionsByAssessment(@PathVariable Integer qId) {
         return ResponseEntity.ok(questionService.getAllQuestionsByAssessmentId(qId));
     }
 
+    @Role(User.Role.TEACHER)
     @PostMapping("")
     public ResponseEntity<Question> create(@Valid @RequestBody Question question, @PathVariable Integer qId) {
         Question saved = questionService.create(question, qId);
@@ -62,6 +66,7 @@ public class QuestionController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    @Role(User.Role.TEACHER)
     @DeleteMapping(QUESTION_ID)
     public ResponseEntity<Question> delete(@PathVariable Integer qId) {
         if (questionService.delete(qId)) {
@@ -71,6 +76,7 @@ public class QuestionController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    @Role(User.Role.TEACHER)
     @PatchMapping(QUESTION_ID)
     public ResponseEntity<Question> update(@PathVariable Integer qId, @Valid @RequestBody Question question) {
         Question updated = questionService.update(qId, question);

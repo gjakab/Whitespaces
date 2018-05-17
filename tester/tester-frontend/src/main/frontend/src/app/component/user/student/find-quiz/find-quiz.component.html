@@ -20,62 +20,69 @@
     </div>
 
     <ng-template #atleastone>
-        <input
-        type='text'
-        style='padding:8px;margin:15px auto;width:30%;'
-        placeholder='Keresés quiz név alapján...'
-        (keyup)='updateFilter($event)'
-      />
+        <div class="card mt-40" style="width: 20rem;">
+            <h5 class="card-header">Keresés</h5>
+            <div class="card-body">
+                <input
+                type='text'
+                style='padding:8px;margin:15px auto;width:100%;'
+                placeholder='Keresés quiz név alapján...'
+                (keyup)='updateFilter($event)'
+                />
+            </div>
+        </div>
       
-      <ngx-datatable
-        #table
-        class="bootstrap"
-        [rows]="quizzes"
-        [columnMode]="'force'"
-        [headerHeight]="50"
-        [footerHeight]="40"
-        [rowHeight]="'70'"
-        [limit]="10"
-        [messages]="messages"
-        >
-        <ngx-datatable-column name="Name" [sortable]="true">
-          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-              <span (click)="sort()">Név</span>
-          </ng-template>
-          <ng-template let-value="value" ngx-datatable-cell-template>
-              {{value}}
-          </ng-template>
-        </ngx-datatable-column>
+      <div class="card mt-30">
+          <ngx-datatable
+            #table
+            class="bootstrap"
+            [rows]="quizzes"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="40"
+            [rowHeight]="'70'"
+            [limit]="10"
+            [messages]="messages"
+            >
+            <ngx-datatable-column name="Name" [sortable]="true">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span (click)="sort()">Név</span>
+              </ng-template>
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{value}}
+              </ng-template>
+            </ngx-datatable-column>
+    
+            <ngx-datatable-column name="creationDate">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span (click)="sort()"><i class="far fa-calendar-alt"></i> Dátum</span>
+              </ng-template>
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{getDate(value)}}
+              </ng-template>
+            </ngx-datatable-column>
+    
+            <ngx-datatable-column name="Stat">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span (click)="sort()"><i class="fas fa-chart-bar"></i> Átlagos pontszám</span>
+              </ng-template>
+              <ng-template let-value="value"  ngx-datatable-cell-template>
+                <span class="badge badge-pill badge-primary">{{value}}</span>
+              </ng-template>
+            </ngx-datatable-column>
+    
+            <ngx-datatable-column name="">
+              <ng-template let-row="row"  ngx-datatable-cell-template>
+                <a href="#/users/student/findquiz/{{row['id']}}">
+                  <button type="button" class="btn btn-info">
+                    <span>Megnyitás <i class="fas fa-arrow-circle-right"></i></span>
+                  </button>
+                </a>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+      </div>
 
-        <ngx-datatable-column name="creationDate">
-          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-              <span (click)="sort()"><i class="far fa-calendar-alt"></i> Dátum</span>
-          </ng-template>
-          <ng-template let-value="value" ngx-datatable-cell-template>
-              {{getDate(value)}}
-          </ng-template>
-        </ngx-datatable-column>
-
-        <ngx-datatable-column name="Stat">
-          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-              <span (click)="sort()"><i class="fas fa-chart-bar"></i> Statisztika</span>
-          </ng-template>
-          <ng-template let-value="value"  ngx-datatable-cell-template>
-            <span class="badge badge-pill badge-primary">{{value}}</span>
-          </ng-template>
-        </ngx-datatable-column>
-
-        <ngx-datatable-column name="">
-          <ng-template let-row="row"  ngx-datatable-cell-template>
-            <a href="#/users/student/findquiz/{{row['id']}}">
-              <button type="button" class="btn btn-info">
-                <span>Megnyitás <i class="fas fa-arrow-circle-right"></i></span>
-              </button>
-            </a>
-          </ng-template>
-        </ngx-datatable-column>
-        
-      </ngx-datatable>
     </ng-template>
 
   </ng-template>

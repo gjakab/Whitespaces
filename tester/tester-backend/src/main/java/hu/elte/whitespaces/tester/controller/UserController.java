@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.elte.whitespaces.tester.config.Role;
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.service.UserService;
 
@@ -81,6 +82,7 @@ public class UserController {
         }
     }
 
+    @Role({ User.Role.TEACHER, User.Role.STUDENT })
     @PostMapping(LOGOUT)
     public ResponseEntity<User> logout() {
         service.logout();

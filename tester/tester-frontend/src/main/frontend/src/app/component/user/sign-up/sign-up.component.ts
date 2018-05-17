@@ -7,7 +7,7 @@ import { UserService } from '../../../service/user.service';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  styleUrls: ['../../../app.component.css']
 })
 export class SignUpComponent implements OnInit {
 
