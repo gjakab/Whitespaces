@@ -42,6 +42,13 @@ public class UserController {
         return ResponseEntity.ok(service.getAllUser());
     }
 
+    /**
+     * This end point is used to get an user from database by id
+     *
+     * @param id
+     *            the id of the user
+     * @return the ResponseEntity containing the user
+     */
     @GetMapping(USER_ID)
     public ResponseEntity<User> getUserById(@RequestParam(value = "value", required = true) Integer id) {
         User response = service.getUserById(id);
