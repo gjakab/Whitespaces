@@ -1,7 +1,0 @@
-language: java
-jdk:
-  - oraclejdk8
-
-script: 
-    - cd tester/tester-backend
-    - mvn test && mvn verify

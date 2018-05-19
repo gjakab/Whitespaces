@@ -1,0 +1,7 @@
+hu.elte.whitespaces.tester
+hu.elte.whitespaces.tester.config
+hu.elte.whitespaces.tester.controller
+hu.elte.whitespaces.tester.model
+hu.elte.whitespaces.tester.model.dto
+hu.elte.whitespaces.tester.repository
+hu.elte.whitespaces.tester.service
