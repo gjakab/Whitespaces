@@ -30,7 +30,7 @@ import hu.elte.whitespaces.tester.service.UserService;
  * @author WhiteSpaces
  *
  */
-@CrossOrigin(origins = { "http://localhost:4200" }) // This is need for development
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/users/quizzes")
 public class AssessmentController {
