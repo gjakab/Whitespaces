@@ -25,6 +25,12 @@ import hu.elte.whitespaces.tester.model.dto.StudentQuizResultDTO;
 import hu.elte.whitespaces.tester.service.QuizResultService;
 import hu.elte.whitespaces.tester.service.UserService;
 
+/**
+ * Controller class for quiz results
+ * 
+ * @author WhiteSpaces
+ *
+ */
 @CrossOrigin(origins = { "http://localhost:4200" }) // This is needed for development
 @RestController
 @RequestMapping("/api/users/quizresults")
@@ -36,24 +42,48 @@ public class QuizResultController {
     private QuizResultService quizResultService;
     private UserService userService;
 
+    /**
+     * Constructor
+     * 
+     * @param quizResultService Service for Quiz result
+     * @param userService Service for User
+     */
     @Autowired
     public QuizResultController(QuizResultService quizResultService, UserService userService) {
         this.quizResultService = quizResultService;
         this.userService = userService;
     }
 
+    /**
+     * List all Quiz results of caller user
+     * 
+     * @return List of Quiz results
+     */
     @Role(User.Role.STUDENT)
     @GetMapping("")
     public ResponseEntity<List<StudentQuizResultDTO>> getAllQuizResultsByUserId() {
         return ResponseEntity.ok(quizResultService.getAllQuizResultsByUserId(userService.getCurrentUser().getId()));
     }
 
+    /**
+     * List all Quiz results by Quiz
+     * 
+     * @param quizId Quiz ID to look up
+     * @return List of Quiz results
+     */
     @Role(User.Role.TEACHER)
     @GetMapping(QUIZ_ID)
     public ResponseEntity<List<QuizResultDTO>> getAllQuizResultsByQuizId(@PathVariable Integer quizId) {
         return ResponseEntity.ok(quizResultService.getAllQuizResultsByQuiz(quizId));
     }
 
+    /**
+     * Create new Quiz result
+     * 
+     * @param quizResult Quiz result to be created
+     * @param quizId Quiz ID to create result for
+     * @return Created Quiz result or NOT_FOUND if creation failed
+     */
     @Role(User.Role.STUDENT)
     @PostMapping(QUIZ_ID)
     public ResponseEntity<AssessmentResult> create(@Valid @RequestBody AssessmentResult quizResult,
@@ -65,6 +95,12 @@ public class QuizResultController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    /**
+     * Delete Quiz result
+     * 
+     * @param quizResultId ID of Quiz result to be deleted
+     * @return OK response or NOT_FOUND if not found
+     */
     @Role(User.Role.TEACHER)
     @DeleteMapping(QUIZRESULT_ID)
     public ResponseEntity<AssessmentResult> delete(@PathVariable Integer quizResultId) {
