@@ -25,7 +25,7 @@ import hu.elte.whitespaces.tester.service.QuestionService;
 
 /**
  * Controller class for questions
- * 
+ *
  * @author WhiteSpaces
  *
  */
@@ -40,7 +40,7 @@ public class QuestionController {
 
     /**
      * Constructor
-     * 
+     *
      * @param questionService Service for Question
      */
     @Autowired
@@ -50,7 +50,7 @@ public class QuestionController {
 
     /**
      * Get Question by ID
-     * 
+     *
      * @param qId Question ID referring to the Question
      * @return Question or NOT_FOUND if not found
      */
@@ -67,7 +67,7 @@ public class QuestionController {
 
     /**
      * List all Questions belonging to specified Quiz
-     * 
+     *
      * @param qId Quiz ID the questions belong to
      * @return List of Questions
      */
@@ -79,7 +79,7 @@ public class QuestionController {
 
     /**
      * Create new Question
-     * 
+     *
      * @param question Question to be created
      * @param qId ID of Question to be created
      * @return Created Question or NOT_FOUND if creation failed
@@ -98,7 +98,7 @@ public class QuestionController {
 
     /**
      * Delete Question
-     * 
+     *
      * @param qId ID of Question to be deleted
      * @return OK response or NOT_FOUND if not found
      */
@@ -114,7 +114,7 @@ public class QuestionController {
 
     /**
      * Update existing Question
-     * 
+     *
      * @param qId ID of Question to be updated
      * @param question Question data to update Question with
      * @return Updated Question or NOT_FOUND if not found

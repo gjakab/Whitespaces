@@ -25,7 +25,7 @@ import hu.elte.whitespaces.tester.service.AnswerService;
 
 /**
  * Controller class for answers
- * 
+ *
  * @author WhiteSpaces
  *
  */
@@ -40,7 +40,7 @@ public class AnswerController {
 
     /**
      * Constructor
-     * 
+     *
      * @param answerService Service for Answer
      */
     @Autowired
@@ -50,7 +50,7 @@ public class AnswerController {
 
     /**
      * Get an Answer by it's ID
-     * 
+     *
      * @param qId Question ID referring to the Question which the Answer belongs to
      * @param anId Answer ID referring to the answer
      * @return Answer or NOT_FOUND if not found
@@ -68,7 +68,7 @@ public class AnswerController {
 
     /**
      * List all Answers belonging to a specific Question
-     * 
+     *
      * @param qId Question ID referring to the Question
      * @return List of Answers
      */
@@ -80,7 +80,7 @@ public class AnswerController {
 
     /**
      * Create new Answer
-     * 
+     *
      * @param answer Answer to be created
      * @param qId Question ID to which the answer will belong
      * @return Answer or NOT_FOUND if creation failed
@@ -98,7 +98,7 @@ public class AnswerController {
 
     /**
      * Delete Answer
-     * 
+     *
      * @param anId ID of Answer to be deleted
      * @return OK response or NOT_FOUND if not found
      */
@@ -113,7 +113,7 @@ public class AnswerController {
 
     /**
      * Update existing Answer
-     * 
+     *
      * @param anId ID of Answer to be updated
      * @param answer Answer data to update Answer with
      * @return Updated Answer or NOT_FOUND if not found

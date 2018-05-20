@@ -21,11 +21,11 @@ import hu.elte.whitespaces.tester.service.UserService;
 
 /**
  * Controller class for users
- * 
+ *
  * @author WhiteSpaces
  *
  */
-@CrossOrigin(origins = { "http://localhost:4200" }) // This is need for development
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -40,7 +40,7 @@ public class UserController {
 
     /**
      * Constructor
-     * 
+     *
      * @param service Service for User
      */
     @Autowired
@@ -50,7 +50,7 @@ public class UserController {
 
     /**
      * List all registered users
-     * 
+     *
      * @return List of User
      */
     @GetMapping(USER_LIST)
@@ -60,7 +60,7 @@ public class UserController {
 
     /**
      * Get registered user by ID
-     * 
+     *
      * @param id User ID to be looked up
      * @return User or NOT_FOUND if not found
      */
@@ -76,7 +76,7 @@ public class UserController {
 
     /**
      * Get user by registered e-mail address
-     * 
+     *
      * @param email E-mail to be looked up
      * @return User or NOT_FOUND if not found
      */
@@ -92,7 +92,7 @@ public class UserController {
 
     /**
      * Create new User
-     * 
+     *
      * @param user User to be created
      * @return Created User or NOT_FOUND if creation failed
      */
@@ -108,7 +108,7 @@ public class UserController {
 
     /**
      * Log existing user in
-     * 
+     *
      * @param user User to be logged in
      * @return User or NOT_FOUND if not registered
      */
@@ -124,7 +124,7 @@ public class UserController {
 
     /**
      * Log logged-in user out
-     * 
+     *
      * @return Empty instance of User after logout
      */
     @Role({ User.Role.TEACHER, User.Role.STUDENT })
@@ -136,7 +136,7 @@ public class UserController {
 
     /**
      * Delete registered user
-     * 
+     *
      * @param id ID of the User to be deleted
      * @return OK response or NOT_FOUND if not found
      */

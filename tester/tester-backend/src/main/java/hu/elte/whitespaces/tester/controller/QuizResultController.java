@@ -27,7 +27,7 @@ import hu.elte.whitespaces.tester.service.UserService;
 
 /**
  * Controller class for quiz results
- * 
+ *
  * @author WhiteSpaces
  *
  */
@@ -44,7 +44,7 @@ public class QuizResultController {
 
     /**
      * Constructor
-     * 
+     *
      * @param quizResultService Service for Quiz result
      * @param userService Service for User
      */
@@ -56,7 +56,7 @@ public class QuizResultController {
 
     /**
      * List all Quiz results of caller user
-     * 
+     *
      * @return List of Quiz results
      */
     @Role(User.Role.STUDENT)
@@ -67,7 +67,7 @@ public class QuizResultController {
 
     /**
      * List all Quiz results by Quiz
-     * 
+     *
      * @param quizId Quiz ID to look up
      * @return List of Quiz results
      */
@@ -79,7 +79,7 @@ public class QuizResultController {
 
     /**
      * Create new Quiz result
-     * 
+     *
      * @param quizResult Quiz result to be created
      * @param quizId Quiz ID to create result for
      * @return Created Quiz result or NOT_FOUND if creation failed
@@ -97,7 +97,7 @@ public class QuizResultController {
 
     /**
      * Delete Quiz result
-     * 
+     *
      * @param quizResultId ID of Quiz result to be deleted
      * @return OK response or NOT_FOUND if not found
      */

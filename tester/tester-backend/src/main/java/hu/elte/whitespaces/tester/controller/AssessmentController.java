@@ -26,7 +26,7 @@ import hu.elte.whitespaces.tester.service.UserService;
 
 /**
  * Controller class for quizzes
- * 
+ *
  * @author WhiteSpaces
  *
  */
@@ -44,7 +44,7 @@ public class AssessmentController {
 
     /**
      * Constructor
-     * 
+     *
      * @param assessmentService Service for Quizzes
      * @param userService Service for Users
      */
@@ -56,7 +56,7 @@ public class AssessmentController {
 
     /**
      * List all Quizzes created by calling user
-     * 
+     *
      * @return List of Quizzes
      */
     @Role(User.Role.TEACHER)
@@ -67,7 +67,7 @@ public class AssessmentController {
 
     /**
      * Get a Quiz by specified ID
-     * 
+     *
      * @param quizId Quiz ID to be looked up
      * @return Quiz or NOT_FOUND if not found
      */
@@ -83,7 +83,7 @@ public class AssessmentController {
 
     /**
      * List all Quizzes created
-     * 
+     *
      * @return List of Quizzes
      */
     @Role(User.Role.TEACHER)
@@ -94,7 +94,7 @@ public class AssessmentController {
 
     /**
      * List available Quizzes for calling user
-     * 
+     *
      * @return List of Quizzes
      */
     @Role(User.Role.STUDENT)
@@ -105,7 +105,7 @@ public class AssessmentController {
 
     /**
      * Create new Quiz
-     * 
+     *
      * @param assessment Quiz data to be created
      * @return Quiz or NOT_FOUND if creation failed
      */
@@ -121,7 +121,7 @@ public class AssessmentController {
 
     /**
      * Delete Quiz
-     * 
+     *
      * @param quizId ID of Quiz to be deleted
      * @return OK response or NOT_FOUND if not found
      */
@@ -136,7 +136,7 @@ public class AssessmentController {
 
     /**
      * Update existing Quiz
-     * 
+     *
      * @param quizId ID of Quiz to be updated
      * @param assessment Quiz Data to update Quiz with
      * @return Updated Quiz or NOT_FOUND if not found
