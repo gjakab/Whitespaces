@@ -23,6 +23,12 @@ import hu.elte.whitespaces.tester.model.Question;
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.service.QuestionService;
 
+/**
+ * Controller class for questions
+ *
+ * @author WhiteSpaces
+ *
+ */
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("api/users/quizzes/{qId}")
@@ -32,11 +38,22 @@ public class QuestionController {
 
     private QuestionService questionService;
 
+    /**
+     * Constructor
+     *
+     * @param questionService Service for Question
+     */
     @Autowired
     public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
 
+    /**
+     * Get Question by ID
+     *
+     * @param qId Question ID referring to the Question
+     * @return Question or NOT_FOUND if not found
+     */
     @GetMapping(QUESTION_ID)
     public ResponseEntity<Question> getQuestionById(@PathVariable Integer qId) {
         Question response = questionService.getQuestionById(qId);
@@ -48,12 +65,25 @@ public class QuestionController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    /**
+     * List all Questions belonging to specified Quiz
+     *
+     * @param qId Quiz ID the questions belong to
+     * @return List of Questions
+     */
     @Role({ User.Role.TEACHER, User.Role.STUDENT })
     @GetMapping(QUESTION_LIST)
     public ResponseEntity<List<Question>> getAllQuestionsByAssessment(@PathVariable Integer qId) {
         return ResponseEntity.ok(questionService.getAllQuestionsByAssessmentId(qId));
     }
 
+    /**
+     * Create new Question
+     *
+     * @param question Question to be created
+     * @param qId ID of Question to be created
+     * @return Created Question or NOT_FOUND if creation failed
+     */
     @Role(User.Role.TEACHER)
     @PostMapping("")
     public ResponseEntity<Question> create(@Valid @RequestBody Question question, @PathVariable Integer qId) {
@@ -66,6 +96,12 @@ public class QuestionController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    /**
+     * Delete Question
+     *
+     * @param qId ID of Question to be deleted
+     * @return OK response or NOT_FOUND if not found
+     */
     @Role(User.Role.TEACHER)
     @DeleteMapping(QUESTION_ID)
     public ResponseEntity<Question> delete(@PathVariable Integer qId) {
@@ -76,6 +112,13 @@ public class QuestionController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    /**
+     * Update existing Question
+     *
+     * @param qId ID of Question to be updated
+     * @param question Question data to update Question with
+     * @return Updated Question or NOT_FOUND if not found
+     */
     @Role(User.Role.TEACHER)
     @PatchMapping(QUESTION_ID)
     public ResponseEntity<Question> update(@PathVariable Integer qId, @Valid @RequestBody Question question) {

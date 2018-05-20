@@ -5,3 +5,4 @@ jdk:
 script: 
     - cd tester/tester-backend
     - mvn test && mvn verify
+    - mvn javadoc:javadoc

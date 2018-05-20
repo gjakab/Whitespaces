@@ -24,7 +24,13 @@ import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.service.AssessmentService;
 import hu.elte.whitespaces.tester.service.UserService;
 
-@CrossOrigin(origins = { "http://localhost:4200" }) // This is need for development
+/**
+ * Controller class for quizzes
+ *
+ * @author WhiteSpaces
+ *
+ */
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/users/quizzes")
 public class AssessmentController {
@@ -36,18 +42,35 @@ public class AssessmentController {
     private AssessmentService assessmentService;
     private UserService userService;
 
+    /**
+     * Constructor
+     *
+     * @param assessmentService Service for Quizzes
+     * @param userService Service for Users
+     */
     @Autowired
     public AssessmentController(AssessmentService assessmentService, UserService userService) {
         this.assessmentService = assessmentService;
         this.userService = userService;
     }
 
+    /**
+     * List all Quizzes created by calling user
+     *
+     * @return List of Quizzes
+     */
     @Role(User.Role.TEACHER)
     @GetMapping("")
     public ResponseEntity<List<Assessment>> getAllAssessmentsByUserId() {
         return ResponseEntity.ok(assessmentService.getAllAssessmentsByUserId(userService.getCurrentUser().getId()));
     }
 
+    /**
+     * Get a Quiz by specified ID
+     *
+     * @param quizId Quiz ID to be looked up
+     * @return Quiz or NOT_FOUND if not found
+     */
     @Role({ User.Role.TEACHER, User.Role.STUDENT })
     @GetMapping(QUIZ_ID)
     public ResponseEntity<Assessment> getAssessmentById(@PathVariable Integer quizId) {
@@ -58,18 +81,34 @@ public class AssessmentController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    /**
+     * List all Quizzes created
+     *
+     * @return List of Quizzes
+     */
     @Role(User.Role.TEACHER)
     @GetMapping(TEACHER_QUIZ_LIST)
     public ResponseEntity<List<Assessment>> getAllAssessments() {
         return ResponseEntity.ok(assessmentService.getAllAssessments());
     }
 
+    /**
+     * List available Quizzes for calling user
+     *
+     * @return List of Quizzes
+     */
     @Role(User.Role.STUDENT)
     @GetMapping(STUDENT_QUIZ_LIST)
     public ResponseEntity<List<Assessment>> getAvaiableQuizzesForUser() {
         return ResponseEntity.ok(assessmentService.getAvaiableQuizzesForUser(userService.getCurrentUser().getId()));
     }
 
+    /**
+     * Create new Quiz
+     *
+     * @param assessment Quiz data to be created
+     * @return Quiz or NOT_FOUND if creation failed
+     */
     @Role(User.Role.TEACHER)
     @PostMapping("")
     public ResponseEntity<Assessment> create(@Valid @RequestBody Assessment assessment) {
@@ -80,6 +119,12 @@ public class AssessmentController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    /**
+     * Delete Quiz
+     *
+     * @param quizId ID of Quiz to be deleted
+     * @return OK response or NOT_FOUND if not found
+     */
     @Role(User.Role.TEACHER)
     @DeleteMapping(QUIZ_ID)
     public ResponseEntity<Assessment> delete(@PathVariable Integer quizId) {
@@ -89,6 +134,13 @@ public class AssessmentController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    /**
+     * Update existing Quiz
+     *
+     * @param quizId ID of Quiz to be updated
+     * @param assessment Quiz Data to update Quiz with
+     * @return Updated Quiz or NOT_FOUND if not found
+     */
     @Role(User.Role.TEACHER)
     @PatchMapping(QUIZ_ID)
     public ResponseEntity<Assessment> update(@PathVariable Integer quizId, @Valid @RequestBody Assessment assessment) {

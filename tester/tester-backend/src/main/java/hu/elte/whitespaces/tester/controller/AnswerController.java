@@ -23,6 +23,12 @@ import hu.elte.whitespaces.tester.model.Answer;
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.service.AnswerService;
 
+/**
+ * Controller class for answers
+ *
+ * @author WhiteSpaces
+ *
+ */
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/users/assessments/questions/{qId}")
@@ -32,11 +38,23 @@ public class AnswerController {
 
     private AnswerService answerService;
 
+    /**
+     * Constructor
+     *
+     * @param answerService Service for Answer
+     */
     @Autowired
     public AnswerController(AnswerService answerService) {
         this.answerService = answerService;
     }
 
+    /**
+     * Get an Answer by it's ID
+     *
+     * @param qId Question ID referring to the Question which the Answer belongs to
+     * @param anId Answer ID referring to the answer
+     * @return Answer or NOT_FOUND if not found
+     */
     @Role(User.Role.TEACHER)
     @GetMapping(ANSWER_ID)
     public ResponseEntity<Answer> getAnswerById(@PathVariable Integer qId, @PathVariable Integer anId) {
@@ -48,12 +66,25 @@ public class AnswerController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    /**
+     * List all Answers belonging to a specific Question
+     *
+     * @param qId Question ID referring to the Question
+     * @return List of Answers
+     */
     @Role(User.Role.TEACHER)
     @GetMapping(ANSWER_LIST)
     public ResponseEntity<List<Answer>> getAllAnswersByQuestionId(@PathVariable Integer qId) {
         return ResponseEntity.ok(answerService.getAllAnswersByQuestion(qId));
     }
 
+    /**
+     * Create new Answer
+     *
+     * @param answer Answer to be created
+     * @param qId Question ID to which the answer will belong
+     * @return Answer or NOT_FOUND if creation failed
+     */
     @Role(User.Role.TEACHER)
     @PostMapping("")
     public ResponseEntity<Answer> create(@Valid @RequestBody Answer answer, Integer qId) {
@@ -65,6 +96,12 @@ public class AnswerController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    /**
+     * Delete Answer
+     *
+     * @param anId ID of Answer to be deleted
+     * @return OK response or NOT_FOUND if not found
+     */
     @Role(User.Role.TEACHER)
     @DeleteMapping(ANSWER_ID)
     public ResponseEntity<Answer> delete(@PathVariable Integer anId) {
@@ -74,6 +111,13 @@ public class AnswerController {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 
+    /**
+     * Update existing Answer
+     *
+     * @param anId ID of Answer to be updated
+     * @param answer Answer data to update Answer with
+     * @return Updated Answer or NOT_FOUND if not found
+     */
     @Role(User.Role.TEACHER)
     @PatchMapping(ANSWER_ID)
     public ResponseEntity<Answer> update(@PathVariable Integer anId, @Valid @RequestBody Answer answer) {

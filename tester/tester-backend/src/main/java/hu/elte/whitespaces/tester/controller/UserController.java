@@ -19,7 +19,13 @@ import hu.elte.whitespaces.tester.config.Role;
 import hu.elte.whitespaces.tester.model.User;
 import hu.elte.whitespaces.tester.service.UserService;
 
-@CrossOrigin(origins = { "http://localhost:4200" }) // This is need for development
+/**
+ * Controller class for users
+ *
+ * @author WhiteSpaces
+ *
+ */
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -32,16 +38,32 @@ public class UserController {
 
     private UserService service;
 
+    /**
+     * Constructor
+     *
+     * @param service Service for User
+     */
     @Autowired
     UserController(UserService service) {
         this.service = service;
     }
 
+    /**
+     * List all registered users
+     *
+     * @return List of User
+     */
     @GetMapping(USER_LIST)
     public ResponseEntity<List<User>> getAll() {
         return ResponseEntity.ok(service.getAllUser());
     }
 
+    /**
+     * Get registered user by ID
+     *
+     * @param id User ID to be looked up
+     * @return User or NOT_FOUND if not found
+     */
     @GetMapping(USER_ID)
     public ResponseEntity<User> getUserById(@RequestParam(value = "value", required = true) Integer id) {
         User response = service.getUserById(id);
@@ -52,6 +74,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Get user by registered e-mail address
+     *
+     * @param email E-mail to be looked up
+     * @return User or NOT_FOUND if not found
+     */
     @GetMapping(EMAIL)
     public ResponseEntity<User> getUserByEmail(@RequestParam(value = "value", required = true) String email) {
         User response = service.getUserByEmail(email);
@@ -62,6 +90,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Create new User
+     *
+     * @param user User to be created
+     * @return Created User or NOT_FOUND if creation failed
+     */
     @PostMapping("")
     public ResponseEntity<User> create(@RequestBody User user) {
         User saved = service.register(user);
@@ -72,6 +106,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Log existing user in
+     *
+     * @param user User to be logged in
+     * @return User or NOT_FOUND if not registered
+     */
     @PostMapping(LOGIN)
     public ResponseEntity<User> login(@RequestBody User user) {
         User loggedInUser = service.login(user);
@@ -82,6 +122,11 @@ public class UserController {
         }
     }
 
+    /**
+     * Log logged-in user out
+     *
+     * @return Empty instance of User after logout
+     */
     @Role({ User.Role.TEACHER, User.Role.STUDENT })
     @PostMapping(LOGOUT)
     public ResponseEntity<User> logout() {
@@ -89,6 +134,12 @@ public class UserController {
         return ResponseEntity.ok(new User());
     }
 
+    /**
+     * Delete registered user
+     *
+     * @param id ID of the User to be deleted
+     * @return OK response or NOT_FOUND if not found
+     */
     @DeleteMapping(USER_ID)
     public ResponseEntity<User> delete(@RequestParam(value = "value", required = true) Integer id) {
         if (service.delete(id)) {
